@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,AsyncStorage,
-  StyleSheet,
-  Text,
-  Picker,
-  View,
-  AppState,
-  Alert,Image,
-  ActivityIndicator,
-  TextInput,
-  TouchableHighlight,
-  TouchableOpacity,
-  Platform
+  AppRegistry,AsyncStorage,StyleSheet,Text,
+  Picker,View,AppState,Alert,Image,ActivityIndicator,
+  TextInput,TouchableHighlight,TouchableOpacity,Platform
 } from 'react-native';
 
 import Logo from './logo';
