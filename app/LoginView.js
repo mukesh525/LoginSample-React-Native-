@@ -126,7 +126,7 @@ class LoginView extends Component{
   //   });
 
     //const { navigate } = this.props.navigation;
-    this._navigateTo('Home')
+    this._navigateTo('Home',response)
     //navigate('Home',{ response: response })
   }
   else{
@@ -139,10 +139,10 @@ class LoginView extends Component{
 }
 
 
-      _navigateTo = (routeName: string) => {
+      _navigateTo = (routeName: string, response :response) => {
        const actionToDispatch = NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName })]
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: routeName ,params: { response: response}})]
         })
         this.props.navigation.dispatch(actionToDispatch)
        }

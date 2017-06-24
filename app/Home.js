@@ -8,14 +8,13 @@ import { NavigationActions } from 'react-navigation'
 
 var self
 class HomePage extends Component {
-    // const {state, setParams} = navigation;
-    // const isInfo = state.params.mode === 'info';
-    // const {user} = state.params;
 
-    static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation }) => {
     const { navigate } = navigation;
+    const {params } = navigation.state.params;
+
     return {
-      title: 'Home',
+      title:  navigation.state.params.response.empName,
       headerRight: (
         <Button
           title={'Logout'}
@@ -26,16 +25,27 @@ class HomePage extends Component {
   };
 
 
-
+   componentWillReceiveProps(nextProps) {
+    if (nextProps.response) {
+      this.props.navigation.setParams({ response });
+    }
+  }
 
     constructor (props) {
         super(props);
          self = this
         this.state = {
-            signedin: false
+            signedin: false,
+            response :" "
         };
 
     }
+
+
+   setState = (state) => {
+      this.setState({response: response});
+   }
+
 
       changeView() {
         navigate('Login', { name: 'Jane' })
@@ -54,13 +64,12 @@ class HomePage extends Component {
 
 
       render () {
-         const { navigate } = this.props.navigation;
-         const {state} = this.props.navigation
-         const { params } = this.props.navigation.state;
+          const { params } = this.props.navigation.state;
+      //  const {response} = this.navigate.state.params.response;
           return (
               <View style={styles.container}>
                   <Text style={{marginTop:200}}>
-                      Welcome 
+                      Welcomen {params.response.empName}
                   </Text>
                       <TouchableHighlight onPress={() => navigate('Detail')} style={{height:50, flexDirection: 'row', justifyContnet: 'center',backgroundColor: '#ddd'}}>
                       <Text style={{fontSize:10,margin :20}}>Detail Page</Text>
