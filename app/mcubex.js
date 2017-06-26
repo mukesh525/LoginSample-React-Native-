@@ -4,9 +4,16 @@ import React, { Component } from 'react'
 import {StyleSheet, Text,View,ActivityIndicator,Image, NavigatorIOS,TouchableHighlight} from 'react-native';
 
 
-class Detail extends Component {
+class MCubeX extends React.Component {
   static navigationOptions = {
-      title: 'Detail Page',
+      title:'MCube',
+      tabBarLabel: 'MCubeX',
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+        source={require('../img/log.png')}
+          style={[styles.icon, {tintColor: tintColor}]}
+        />
+      ),
     };
     constructor (props) {
         super(props);
@@ -20,9 +27,9 @@ class Detail extends Component {
           return (
               <View style={styles.container}>
                   <Text style={{marginTop:200}}>
-                      Welcome  Detail 
+                        Welcome  MCubeX
                   </Text>
-                      <Text style={{fontSize:20}}>Sign In</Text>
+
 
               </View>
           );
@@ -33,4 +40,4 @@ class Detail extends Component {
         flex: 1,
     }
  });
-module.exports = Detail;
+module.exports = MCubeX;
