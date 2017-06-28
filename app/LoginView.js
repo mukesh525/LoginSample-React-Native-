@@ -117,7 +117,7 @@ class LoginView extends Component{
   this.setState({ isLoading: false , message: response.code });
     console.log(response);
     if(response.code =='200'){
-    this.props.navigation.navigate('Home')
+    this.props.navigation.navigate('Home',{ response:  response })
     //this._navigateTo('Home',response)
     //navigate('Home',{ response: response })
   }

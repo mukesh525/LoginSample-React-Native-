@@ -10,13 +10,23 @@ import {
 export default class TodayView extends Component {
   constructor(props, context) {
     super(props, context);
+
+    //console.log(this.props.response);
   }
+
+
+  componentWillReceiveProps(newProps){
+  if (newProps.response) {
+      this.props.setParams({ response });
+    }
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Today View
+            Welcome to Today View {this.props.response.empName}
           </Text>
         </View>
     );

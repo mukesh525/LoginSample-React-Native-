@@ -48,6 +48,8 @@ class TabContentNavigator extends Component {
     this.state = {
       active: props.value.active,
     };
+//    console.log(this.props.response);
+
   }
 
   //this method will not get called first time
@@ -55,11 +57,15 @@ class TabContentNavigator extends Component {
     this.setState({
       active: newProps.value.active,
     });
+
+   if (newProps.response) {
+      this.props.setParams({ response });
+    }
   }
 
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
-    return <Component/>;
+    return <Component response={this.props.response} />;
   }
 }
 
@@ -70,11 +76,21 @@ export default class App extends Component {
     this.state = {
       active: 'Today',
     };
+   //console.log(this.props.navigation.state.params.response.empName);
+
+
   }
 
   static navigationOptions = {
     title: 'Menu',
   };
+
+  // componentWillReceiveProps(nextProps) {
+  //  if (nextProps.response) {
+  //    this.props.navigation.setParams({ response });
+  //  }
+  // }
+
 
   navigate() {
     this.props.navigation.navigate('DrawerOpen'); // open drawer
@@ -94,7 +110,7 @@ export default class App extends Component {
             onRightElementPress = {() => this.props.navigation.navigate('login')}
           />
 
-          <TabContentNavigator value={this.state} key={this.state} />
+          <TabContentNavigator value={this.state} response={this.props.navigation.state.params.response} key={this.state} />
 
           <BottomNavigation active={this.state.active}
             hidden={false}
