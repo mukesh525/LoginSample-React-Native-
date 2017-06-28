@@ -91,6 +91,7 @@ export default class App extends Component {
             centerElement={this.state.active}
             onLeftElementPress={() => this.navigate()}
             rightElement={["notifications"]}
+            onRightElementPress = {() => this.props.navigation.navigate('Login')}
           />
 
           <TabContentNavigator value={this.state} key={this.state} />
