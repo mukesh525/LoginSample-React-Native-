@@ -26,7 +26,7 @@ const uiTheme = {
   },
   toolbar: {
     container: {
-      height: 70,
+      height: 80,
       paddingTop: 20
     }
   }
@@ -90,8 +90,8 @@ export default class App extends Component {
             leftElement="menu"
             centerElement={this.state.active}
             onLeftElementPress={() => this.navigate()}
-            rightElement={["notifications"]}
-            onRightElementPress = {() => this.props.navigation.navigate('Login')}
+            rightElement={["power-settings-new"]}
+            onRightElementPress = {() => this.props.navigation.navigate('login')}
           />
 
           <TabContentNavigator value={this.state} key={this.state} />

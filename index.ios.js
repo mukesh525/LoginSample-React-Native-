@@ -52,9 +52,6 @@
  });
 
  const easyRNRoute = DrawerNavigator({
-   Login: {
-     screen: LoginView,
-   },
    Home: {
      screen: App,
    },
@@ -103,9 +100,6 @@
       title: `Home`,
       header: false,
   }},
- }, {
-
-   initialRouteName: 'login',
  });
 
 

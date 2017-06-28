@@ -17,7 +17,7 @@ const uiTheme = {
     toolbar: {
         container: {
             height: 70,
-            paddingTop: 20,
+            paddingTop: 30,
           },
       },
       avatar: {
