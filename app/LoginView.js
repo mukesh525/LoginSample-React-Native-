@@ -9,7 +9,7 @@ import {
 
 import { NavigationActions } from 'react-navigation'
 import Logo from './logo';
-
+//import Input from 'react-input-password';.
 const styles =StyleSheet.create({
 
   container:{
@@ -73,14 +73,18 @@ class LoginView extends Component{
   constructor(props){
    super(props);
    this.state = {
-    email: 'g',
+    email: '',
     password :'',
+    error: null,
     isLoading: false,
-    signedin: false
+    signedin: false,
+    passwordDisplayed: false
    };
    }
 
-
+   togglePassword() {
+      this.setState({ passwordDisplayed: !this.state.passwordDisplayed })
+    }
 
      componentDidMount() {
          this._loadInitialState().done();
@@ -145,6 +149,7 @@ class LoginView extends Component{
 
     _onLoginClicked() {
 
+      if(this.isValid()){
         if (this.state.email != '' || this.state.password != ''){
           this._initLogin()
         } else{
@@ -152,6 +157,7 @@ class LoginView extends Component{
 
         }
     }
+   }
 
     async _loadInitialState() {
         try {
@@ -179,6 +185,27 @@ class LoginView extends Component{
       this.setState({ password: password});
     }
 
+    isValid() {
+        const { email, password } = this.state;
+        let valid = false;
+
+        if (email.length > 0 && password.length > 0) {
+          valid = true;
+        }
+
+        if (email.length === 0) {
+          this.setState({ error: 'You must enter an email address' });
+        } else if (password.length === 0) {
+          this.setState({ error: 'You must enter a password' });
+        }
+
+        return valid;
+      }
+
+
+
+
+
     render(){
        var spinner = this.state.isLoading ?( <ActivityIndicator size='large' text = 'Please wait'/> ) : ( <View/>);
        return (
@@ -190,6 +217,7 @@ class LoginView extends Component{
            style={styles.input}
            underlineColorAndroid = "transparent"
            placeholderTextColor = "#9a73ef"
+           inlineImageLeft = {"account"}
            placeholder="Enter Username!"
            autoCapitalize = "none"
            textAlign = "center"
@@ -197,6 +225,7 @@ class LoginView extends Component{
            onChangeText={(text) => this.onChangeEmail(text)}
 
          />
+          <Text style={styles.error}>{this.state.error}</Text>
           <TextInput style={styles.input}
            underlineColorAndroid="transparent"
            placeholderTextColor ="#9a73ef"

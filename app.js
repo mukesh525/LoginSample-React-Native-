@@ -75,9 +75,12 @@ export default class App extends Component {
 
     this.state = {
       active: 'Today',
+      response :
     };
    //console.log(this.props.navigation.state.params.response.empName);
-
+  //  if (props.response) {
+  //      this.props.navigation.setParams({ response });
+  //   }
 
   }
 
