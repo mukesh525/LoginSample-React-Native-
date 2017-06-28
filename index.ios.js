@@ -5,7 +5,6 @@
  */
  import React, { Component } from 'react';
  import { AppRegistry,NavigatorIOS,Text} from 'react-native';
- import {StackNavigator,TabNavigator} from 'react-navigation';
 
  import App from './app';
  import DrawerMenu from './Drawer/drawer-toolbar-ios';
@@ -14,7 +13,7 @@
  import ClientView from './Pages/client';
  import InfoView from './Pages/info';
  import SettingsView from './Pages/setting';
- import { DrawerNavigator, StackNavigator } from 'react-navigation';
+ import { DrawerNavigator, StackNavigator,TabNavigator } from 'react-navigation';
 
 
 
@@ -87,16 +86,30 @@
    Mcubex: { screen: MCubeXPage },
  });
 
- const App = StackNavigator({
-   Login: { screen: LoginView },
-   Home: { screen: HomeScreenNavigator },
-   Detail: { screen: DetailView},
+ // const App = StackNavigator({
+ //   Login: { screen: LoginView },
+ //   Home: { screen: HomeScreenNavigator },
+ //   Detail: { screen: DetailView},
+ // });
+
+ const MainNavigator = StackNavigator({
+    login: {screen: LoginView,
+      navigationOptions: {
+      title: `Login`,
+      header: true,
+    }},
+    Home: {screen: easyRNRoute,
+      navigationOptions: {
+      title: `Home`,
+      header: false,
+  }},
+ }, {
+
+   initialRouteName: 'login',
  });
 
 
-
-
- AppRegistry.registerComponent("LoginSample", () => easyRNRoute);
+ AppRegistry.registerComponent("LoginSample", () => MainNavigator);
 
 
  //AppRegistry.registerComponent('LoginSample', () => App);

@@ -117,16 +117,8 @@ class LoginView extends Component{
   this.setState({ isLoading: false , message: response.code });
     console.log(response);
     if(response.code =='200'){
-  //     this.props.navigator.replace({
-  //     title: 'Home',
-  //     component: HomePage,
-  //     passProps: {response: response},
-  //     rightButtonTitle: 'Logout',
-  //     onRightButtonPress: () => { this.refs.nav.navigator.pop(); }
-  //   });
-
-    //const { navigate } = this.props.navigation;
-    this._navigateTo('Home',response)
+    this.props.navigation.navigate('Home')
+    //this._navigateTo('Home',response)
     //navigate('Home',{ response: response })
   }
   else{
