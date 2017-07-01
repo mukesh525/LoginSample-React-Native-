@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
-var productArray = [];
+
 export default class TrackView extends Component {
   constructor(props, context) {
     super(props, context);
@@ -16,23 +16,48 @@ export default class TrackView extends Component {
       response: props.response,
       isLoading: false,
       message:'',
+      key:props.data,
       records:[],
       dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 }),
     }
+
   }
 
-  componentDidMount() {
-      this._initReport();
+
+
+  shouldComponentUpdate(nextProps, nextState) {
+    //console.log(nextState)
+    //console.log(nextProps)
+    //console.log(this.state)
+    return (nextProps.data != this.state.key)
+
+
     }
 
 
+
+componentDidUpdate() {
+  console.log("componentDidUpdate called "+this.state.key)
+   this._initReport();
+}
+
+ componentWillReceiveProps(newProps){
+      this.setState({
+        key: newProps.data,
+        response: newProps.response,
+      });
+  }
+
   _initReport() {
     this.setState({ isLoading: true ,message: ''});
+
+    console.log("_initReport called "+this.state.key  + "  authKey   " +this.state.response.authKey)
+
     var form = new FormData();
     form.append('authKey', this.state.response.authKey);
     form.append('limit', '10');
     form.append('ofset', '0');
-    form.append('type', 'track');
+    form.append('type', this.state.key);
     form.append('gid', '0');
 
     fetch('https://mcube.vmctechnologies.com/mobappv1/getList', {
@@ -50,31 +75,48 @@ export default class TrackView extends Component {
         isLoading: false,
         message: 'Something bad happened ' + error
      })
-   ).done();
+   ).done({
+      //render();
+     });
 
    }
 
    _handleResponse(response) {
+     console.log("_handleResponse called "+this.state.key)
+     console.log(response)
      productArray = response.records;
-     console.log(productArray)
+     console.log(this.state.key);
      this.setState({ isLoading: false , message: response.code ,
           records :response.records,
           dataSource: this.state.dataSource.cloneWithRows(response.records)
         });
-    console.log("after handling "+this.state.records);
+    //this.forceUpdate();
+
  }
 
  renderRecord(record) {
-        return (
+
+     return (
              <TouchableHighlight>
-                 <View>
-                     <View style={styles.container}>
-                         <View style={styles.rightContainer}>
-                             <Text style={styles.title}>{record.groupname}</Text>
-                             <Text style={styles.author}>{record.status}</Text>
-                         </View>
+                 <View style ={styles.outerView}>
+                     <View style={styles.innerView}>
+                             <Text style={styles.title} >Group</Text>
+                             <Text style={styles.title} >Status</Text>
                      </View>
-                     <View style={styles.separator} />
+                     <View style={styles.innerView}>
+                             <Text style={styles.subtitle} >{record.groupname}</Text>
+                             <Text style={styles.subtitle} >{record.status}</Text>
+                     </View>
+
+                     <View style={styles.innerView}>
+                             <Text style={styles.title} >Call From</Text>
+                             <Text style={styles.title} >Call Time</Text>
+                     </View>
+                     <View style={styles.innerView}>
+                             <Text style={styles.subtitle} >{record.callfrom}</Text>
+                             <Text style={styles.subtitle} >{record.calltime}</Text>
+                     </View>
+                    <View style={styles.separator} />
                  </View>
              </TouchableHighlight>
         );
@@ -85,23 +127,28 @@ export default class TrackView extends Component {
  };
 
 
+componentWillMount(){
+  this._initReport(this.state.key)
 
+}
 
 
 
 
 
   render() {
+    console.log("render called")
     const { businessName,empEmail,empName,empContact} = this.props.response;
     var records = this.state.records;
-    // if (this.state.isLoading) {
-    //       return this.renderLoadingView();
-    //   }
+     if (this.state.isLoading) {
+          return this.renderLoadingView();
+      }
    return (
       <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRecord.bind(this)}
           style={styles.listView}
+          enableEmptySections = {true}
           onPress={() => this.onLearnMore(record)}
           />
       );
@@ -109,9 +156,7 @@ export default class TrackView extends Component {
 
   renderLoadingView() {
       return (
-          <View style={styles.loading}>
-              <ActivityIndicator size='large'/> )
-          </View>
+        <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
       );
     }
 
@@ -126,7 +171,7 @@ export default class TrackView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
@@ -143,4 +188,27 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  innerView :{
+    marginTop:5,
+    flexDirection:'row',
+    justifyContent:'space-between'
+
+  },
+  outerView :{
+          margin:10,
+          backgroundColor: 'powderblue',
+          padding :10,
+          flex:1,
+     },
+   title :{
+       fontSize: 10,
+       fontWeight: 'bold',
+
+     },
+   subtitle :{
+     fontSize: 10,
+     fontWeight:'normal',
+
+          }
+
 });

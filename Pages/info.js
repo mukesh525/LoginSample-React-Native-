@@ -9,7 +9,19 @@ import {
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import Container from '../Container';
 
-import uiTheme from '../app/theme';
+import uiThemee from '../app/theme';
+const uiTheme = {
+ palette: {
+   primaryColor: COLOR.orange700,
+   accentColor: COLOR.pink500,
+ },
+ toolbar: {
+   container: {
+     height: 80,
+     paddingTop: 20
+   }
+ }
+}
 export default class InfoView extends Component {
   render() {
     return (

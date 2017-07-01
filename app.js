@@ -46,10 +46,10 @@ import uiTheme from './app/theme';
 
 const TabRoute = TabRouter({
   Track: { screen: TrackView },
-  MCubeX: { screen: MCubeXView },
-  IVRS: { screen: IVRSView },
-  Lead: {screen: LeadView},
-  MTracker: {screen: MTrackerView}
+  MCubeX: { screen: TrackView },
+  IVRS: { screen: TrackView },
+  Lead: {screen: TrackView},
+  MTracker: {screen: TrackView}
   }, {
     initialRouteName: 'Track',
   }
@@ -61,21 +61,29 @@ class TabContentNavigator extends Component {
     this.state = {
       active: props.value.active,
       response: props.response,
+      key:props.value.key,
     };
   }
+
+
+
+
+
+
 
   //this method will not get called first time
   componentWillReceiveProps(newProps){
     this.setState({
       active: newProps.value.active,
+      key: newProps.value.key,
       response: newProps.response,
     });
   }
 
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
-    //console.log(this.state.response.empName);
-    return <Component response={this.state.response} />;
+    console.log(this.state.active + "  "+ this.state.key);
+    return <Component response={this.state.response} data={this.state.key} />;
   }
 }
 
@@ -85,6 +93,7 @@ export default class App extends Component {
 
     this.state = {
       active: 'Track',
+      key:'track',
 
     };
 
@@ -117,7 +126,7 @@ logoutDialog(){
 
   render() {
     const { response } = this.props.navigation.state.params;
-
+    const { active } = this.state;
     return (
       <ThemeProvider uiTheme={uiThemee}>
         <Container>
@@ -131,7 +140,7 @@ logoutDialog(){
             onRightElementPress = {() => this.logoutDialog()}
           />
 
-          <TabContentNavigator value={this.state} response ={response} key={this.state} />
+          <TabContentNavigator value = {this.state} response ={response} key = {this.state} />
 
           <BottomNavigation active={this.state.active}
             hidden={false}
@@ -142,7 +151,7 @@ logoutDialog(){
               icon="gps-fixed"
               label="Track"
               style={{ container: { minWidth: null , flexShrink:2} }}
-              onPress={() => this.setState({ active: 'Track' })}
+              onPress={() => this.setState({ active: 'Track', key:'track', })}
             />
             <BottomNavigation.Action
               key="MCubeX"
@@ -150,7 +159,7 @@ logoutDialog(){
               label="MCubeX"
               style={{ container: { minWidth: null } }}
               onPress={() => {
-                this.setState({ active: 'MCubeX' });
+                this.setState({ active: 'MCubeX', key:'pbx', });
               }}
             />
             <BottomNavigation.Action
@@ -158,21 +167,21 @@ logoutDialog(){
               icon="games"
               label="IVRS"
               style={{ container: { minWidth: null } }}
-              onPress={() => this.setState({ active: 'IVRS' })}
+              onPress={() => this.setState({ active: 'IVRS', key:'ivrs', })}
             />
             <BottomNavigation.Action
               key="Lead"
               icon="chat"
               label="Lead"
               style={{ container: { minWidth: null } }}
-              onPress={() => this.setState({ active: 'Lead' })}
+              onPress={() => this.setState({ active: 'Lead', key:'lead', })}
             />
             <BottomNavigation.Action
               key="MTracker"
               icon="phone"
-              label="Mtracker"
+              label="MTracker"
               style={{ container: { minWidth: null } }}
-              onPress={() => this.setState({ active: 'MTracker' })}
+              onPress={() => this.setState({ active: 'MTracker', key:'mtracker', })}
             />
           </BottomNavigation>
 
