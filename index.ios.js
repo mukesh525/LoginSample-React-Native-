@@ -18,13 +18,7 @@
 
 
 
-
  var LoginView = require('./app/LoginView.js');
- var HomePage = require('./app/Home.js');
- var DetailView = require('./app/Detail.js');
- var TrackPage = require('./app/track.js');
- var MCubeXPage = require('./app/mcubex.js');
-
 
  var project = React.createClass({
      render: function() {
@@ -47,18 +41,14 @@
    Bookmark: {screen: BookmarkView },
    Calendar: {screen: CalendarView},
    Client: {screen: ClientView},
- }, {
-   headerMode: 'none'
+   }, {
+    headerMode: 'none'
  });
 
  const easyRNRoute = DrawerNavigator({
-   Home: {
-     screen: App,
-   },
-   Stack: {
-     screen: stackNavigator
-   }
- }, {
+   Home: { screen: App},
+   Stack :{ screen: stackNavigator}
+   }, {
    contentComponent: DrawerMenu,
    contentOptions: {
      activeTintColor: '#e91e63',
@@ -69,25 +59,6 @@
    }
  });
 
-
-
-
-
-
-
-
-
-
- const HomeScreenNavigator = TabNavigator({
-   Track: { screen: TrackPage },
-   Mcubex: { screen: MCubeXPage },
- });
-
- // const App = StackNavigator({
- //   Login: { screen: LoginView },
- //   Home: { screen: HomeScreenNavigator },
- //   Detail: { screen: DetailView},
- // });
 
  const MainNavigator = StackNavigator({
     login: {screen: LoginView,

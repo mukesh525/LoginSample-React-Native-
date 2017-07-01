@@ -15,14 +15,15 @@ import Container from './Container';
 
 import { TabRouter } from 'react-navigation';
 
-import TodayView from './Contents/today';
-import ProfileView from './Contents/profile';
-import MapView from './Contents/map';
-import ChatView from './Contents/chat';
+import TrackView from './Contents/track';
+import MCubeXView from './Contents/mcubex';
+import IVRSView from './Contents/ivrs';
+import LeadView from './Contents/lead';
+import MTrackerView from './Contents/mtracker';
 
 const uiTheme = {
   palette: {
-    primaryColor: COLOR.green500,
+    primaryColor: COLOR.orange700,
     accentColor: COLOR.pink500,
   },
   toolbar: {
@@ -34,12 +35,13 @@ const uiTheme = {
 }
 
 const TabRoute = TabRouter({
-  Today: { screen: TodayView },
-  Profile: { screen: ProfileView },
-  Map: { screen: MapView },
-  Chat: {screen: ChatView}
+  Track: { screen: TrackView },
+  MCubeX: { screen: MCubeXView },
+  IVRS: { screen: IVRSView },
+  Lead: {screen: LeadView},
+  MTracker: {screen: MTrackerView}
   }, {
-    initialRouteName: 'Today',
+    initialRouteName: 'Track',
   }
 );
 
@@ -72,7 +74,7 @@ export default class App extends Component {
     super(props, context);
 
     this.state = {
-      active: 'Today',
+      active: 'Track',
 
     };
 
@@ -125,30 +127,41 @@ logoutDialog(){
             style={{ container: { position: 'absolute', bottom: 0, left: 0, right: 0 } }}
           >
             <BottomNavigation.Action
-              key="Today"
+              key="Track"
               icon="today"
-              label="Today"
-              onPress={() => this.setState({ active: 'Today' })}
+              label="Track"
+              style={{ container: { minWidth: null } }}
+              onPress={() => this.setState({ active: 'Track' })}
             />
             <BottomNavigation.Action
-              key="Profile"
+              key="MCubeX"
               icon="person"
-              label="Profile"
+              label="MCubeX"
+              style={{ container: { minWidth: null } }}
               onPress={() => {
-                this.setState({ active: 'Profile' });
+                this.setState({ active: 'MCubeX' });
               }}
             />
             <BottomNavigation.Action
-              key="Map"
+              key="IVRS"
               icon="map"
-              label="Map"
-              onPress={() => this.setState({ active: 'Map' })}
+              label="IVRS"
+              style={{ container: { minWidth: null } }}
+              onPress={() => this.setState({ active: 'IVRS' })}
             />
             <BottomNavigation.Action
-              key="Chat"
+              key="Lead"
               icon="chat"
-              label="Chat"
-              onPress={() => this.setState({ active: 'Chat' })}
+              label="Lead"
+              style={{ container: { minWidth: null } }}
+              onPress={() => this.setState({ active: 'Lead' })}
+            />
+            <BottomNavigation.Action
+              key="MTracker"
+              icon="chat"
+              label="MTrac"
+              style={{ container: { minWidth: null } }}
+              onPress={() => this.setState({ active: 'MTracker' })}
             />
           </BottomNavigation>
 

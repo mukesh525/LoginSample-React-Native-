@@ -7,15 +7,16 @@ import {
   View
 } from 'react-native';
 
-export default class MapView extends Component {
+export default class TrackView extends Component {
   constructor(props, context) {
     super(props, context);
-    //console.log("Map Constructor called");
+    console.log(props.response.empName);
     this.state = {
       response: props.response,
     };
-    console.log(props.response.empName);
   }
+
+
 
 
   render() {
@@ -24,7 +25,7 @@ export default class MapView extends Component {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Map View {empName} {empEmail}
+            Welcome to Track View {empName}  {empEmail}
           </Text>
         </View>
     );

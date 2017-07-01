@@ -7,16 +7,15 @@ import {
   View
 } from 'react-native';
 
-export default class TodayView extends Component {
+export default class IVRSView extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log(props.response.empName);
+    //console.log("Map Constructor called");
     this.state = {
       response: props.response,
     };
+    console.log(props.response.empName);
   }
-
-
 
 
   render() {
@@ -25,7 +24,7 @@ export default class TodayView extends Component {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Today View {empName}  {empEmail}
+            Welcome to Map View {empName} {empEmail}
           </Text>
         </View>
     );

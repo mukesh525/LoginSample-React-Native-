@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 
-export default class ProfileView extends Component {
+export default class MTrackerView extends Component {
   constructor(props, context) {
     super(props, context);
     console.log(props.response.empName);
@@ -18,18 +18,19 @@ export default class ProfileView extends Component {
 
 
 
+
   render() {
     const { businessName,empEmail,empName,empContact} = this.props.response;
 
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Profile View {empName} {empEmail}
+            Welcome to MTracker View {empName}  {empEmail}
           </Text>
         </View>
     );
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {

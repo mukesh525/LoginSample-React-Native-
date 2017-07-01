@@ -59,7 +59,6 @@ const styles =StyleSheet.create({
         }
     });
 
-var HomePage = require('./Home.js');
 class LoginView extends Component{
 
   static navigationOptions = {
