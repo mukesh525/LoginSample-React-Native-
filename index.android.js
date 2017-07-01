@@ -73,11 +73,6 @@
 
 
 
-
-
-
-
-
  const HomeScreenNavigator = TabNavigator({
    Track: { screen: TrackPage },
    Mcubex: { screen: MCubeXPage },

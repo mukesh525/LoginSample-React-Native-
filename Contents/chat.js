@@ -10,13 +10,23 @@ import {
 export default class ChatView extends Component {
   constructor(props, context) {
     super(props, context);
+    //console.log(props.response.empName);
+    this.state = {
+      response: props.response,
+    };
+
   }
 
+
+
   render() {
+    const { businessName,empEmail,empName,empContact} = this.props.response;
+
+
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Chat View
+            Welcome to Chat View {empName} {empEmail}
           </Text>
         </View>
     );

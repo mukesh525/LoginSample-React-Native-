@@ -10,13 +10,21 @@ import {
 export default class MapView extends Component {
   constructor(props, context) {
     super(props, context);
+    //console.log("Map Constructor called");
+    this.state = {
+      response: props.response,
+    };
+    console.log(props.response.empName);
   }
 
+
   render() {
+    const { businessName,empEmail,empName,empContact} = this.props.response;
+
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Map View
+            Welcome to Map View {empName} {empEmail}
           </Text>
         </View>
     );

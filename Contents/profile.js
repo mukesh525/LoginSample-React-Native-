@@ -10,13 +10,21 @@ import {
 export default class ProfileView extends Component {
   constructor(props, context) {
     super(props, context);
+    console.log(props.response.empName);
+    this.state = {
+      response: props.response,
+    };
   }
 
+
+
   render() {
+    const { businessName,empEmail,empName,empContact} = this.props.response;
+
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Profile View
+            Welcome to Profile View {empName} {empEmail}
           </Text>
         </View>
     );
