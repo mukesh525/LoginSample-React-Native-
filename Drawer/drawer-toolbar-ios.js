@@ -9,24 +9,19 @@ import {
 import { COLOR, ThemeProvider, Toolbar, Drawer, Avatar } from 'react-native-material-ui';
 import Container from '../Container';
 
-const uiTheme = {
-    palette: {
-        primaryColor: COLOR.orange700,
-        accentColor: COLOR.pink500,
-    },
-    toolbar: {
-        container: {
-            height: 60,
-            paddingTop:0,
-        },
-    },
-    avatar: {
-        container: {
-            backgroundColor: '#333'
-        }
-    }
-  };
-
+import uiThemee from '../app/theme';
+const uiTheme= {
+ palette: {
+   primaryColor: COLOR.orange700,
+   accentColor: COLOR.pink500,
+ },
+ toolbar: {
+   container: {
+     height: 80,
+     paddingTop: 20
+   }
+ }
+}
 export default class DrawerMenu extends Component {
   constructor(props, context) {
     super(props, context);

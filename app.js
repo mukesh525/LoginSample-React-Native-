@@ -9,19 +9,21 @@ import {
 } from 'react-native';
 import { Navigator, NativeModules } from 'react-native';
 
-import { COLOR, ThemeProvider } from 'react-native-material-ui';
+
 import { Toolbar, BottomNavigation, Icon } from 'react-native-material-ui';
 import Container from './Container';
 
 import { TabRouter } from 'react-navigation';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
 import TrackView from './Contents/track';
 import MCubeXView from './Contents/mcubex';
 import IVRSView from './Contents/ivrs';
 import LeadView from './Contents/lead';
 import MTrackerView from './Contents/mtracker';
+import uiTheme from './app/theme';
 
-const uiTheme = {
+ const uiThemee = {
   palette: {
     primaryColor: COLOR.orange700,
     accentColor: COLOR.pink500,
@@ -33,6 +35,14 @@ const uiTheme = {
     }
   }
 }
+
+
+
+
+
+
+
+
 
 const TabRoute = TabRouter({
   Track: { screen: TrackView },
@@ -109,7 +119,7 @@ logoutDialog(){
     const { response } = this.props.navigation.state.params;
 
     return (
-      <ThemeProvider uiTheme={uiTheme}>
+      <ThemeProvider uiTheme={uiThemee}>
         <Container>
           <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
 
@@ -131,14 +141,14 @@ logoutDialog(){
               key="Track"
               icon="gps-fixed"
               label="Track"
-              style={{ container: { minWidth: null , fontSize:2} }}
+              style={{ container: { minWidth: null , flexShrink:2} }}
               onPress={() => this.setState({ active: 'Track' })}
             />
             <BottomNavigation.Action
               key="MCubeX"
               icon="clear"
               label="MCubeX"
-              style={{ container: { minWidth: null , fontSize:5} }}
+              style={{ container: { minWidth: null } }}
               onPress={() => {
                 this.setState({ active: 'MCubeX' });
               }}
@@ -147,21 +157,21 @@ logoutDialog(){
               key="IVRS"
               icon="games"
               label="IVRS"
-              style={{ container: { minWidth: null , fontSize:5} }}
+              style={{ container: { minWidth: null } }}
               onPress={() => this.setState({ active: 'IVRS' })}
             />
             <BottomNavigation.Action
               key="Lead"
               icon="chat"
               label="Lead"
-              style={{ container: { minWidth: null , fontSize:5} }}
+              style={{ container: { minWidth: null } }}
               onPress={() => this.setState({ active: 'Lead' })}
             />
             <BottomNavigation.Action
               key="MTracker"
               icon="phone"
               label="Mtracker"
-              style={{ container: { minWidth: null , fontSize:1} }}
+              style={{ container: { minWidth: null } }}
               onPress={() => this.setState({ active: 'MTracker' })}
             />
           </BottomNavigation>

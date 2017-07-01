@@ -9,18 +9,7 @@ import {
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import Container from '../Container';
 
-const uiTheme = {
-  palette: {
-    primaryColor: COLOR.orange700,
-    accentColor: COLOR.pink500,
-  },
-  toolbar: {
-    container: {
-      height: 70,
-      paddingTop: 20,
-    },
-  },
-};
+import uiTheme from '../app/theme';
 
 export default class CalendarView extends Component {
   render() {

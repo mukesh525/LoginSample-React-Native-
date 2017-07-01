@@ -8,30 +8,29 @@ import {
 } from 'react-native';
 import { COLOR, ThemeProvider, Toolbar, Drawer, Avatar } from 'react-native-material-ui';
 import Container from '../Container';
+import uiThemee from '../app/theme';
 
-const uiTheme = {
-    palette: {
-        primaryColor: COLOR.orange700,,
-        accentColor: COLOR.pink500,
-      },
-    toolbar: {
-        container: {
-            height: 70,
-            paddingTop: 30,
-          },
-      },
-      avatar: {
-          container: {
-              backgroundColor: '#333'
-          }
-      }
-  };
-
+const uiTheme= {
+ palette: {
+   primaryColor: COLOR.orange700,
+   accentColor: COLOR.pink500,
+ },
+ toolbar: {
+   container: {
+     height: 80,
+     paddingTop: 20
+   }
+ }
+}
 export default class DrawerMenu extends Component {
   constructor(props, context) {
     super(props, context);
+    const { businessName,empEmail,empName,empContact}
+             = props.navigation.state.params.response;
     this.state = {
         active: 'people',
+        empName:  empName,
+        empEmail: empEmail
       };
   }
 
@@ -55,26 +54,26 @@ export default class DrawerMenu extends Component {
                 />
                 <View style={styles.container}>
                         <Drawer>
-                            <Drawer.Header >
-                                <Drawer.Header.Account
-                                style={{
-                                    container: { backgroundColor: '#fafafa' },
-                                }}
-                                avatar={<Avatar text={'K'} />}
-                                accounts={[
-                                    { avatar: <Avatar text="H" /> },
-                                    { avatar: <Avatar text="L" /> },
-                                ]}
-                                footer={{
-                                    dense: true,
-                                    centerElement: {
-                                        primaryText: 'Mukesh Jha',
-                                        secondaryText: 'mukeshjha2007@gmail.com',
-                                    },
-                                    rightElement: 'arrow-drop-down',
-                                  }}
-                            />
-                            </Drawer.Header>
+                        <Drawer.Header>
+                            <Drawer.Header.Account
+                            style={{
+                                container: { backgroundColor: '#fafafa' },
+                            }}
+                            avatar={<Avatar text={this.state.empName.charAt(0)} />}
+                            // accounts={[
+                            //     { avatar: <Avatar text="H" /> },
+                            //     { avatar: <Avatar text="L" /> },
+                            // ]}
+                            footer={{
+                                dense: true,
+                                centerElement: {
+                                  primaryText: this.state.empName,
+                                  secondaryText: this.state.empEmail,
+                                },
+                              //  rightElement: 'arrow-drop-down',
+                            }}
+                        />
+                        </Drawer.Header>
                             <Drawer.Section
                             style={{
                                 label: {color: '#0000ff'}
