@@ -16,6 +16,7 @@
 		"react-input-password": "^1.0.21",
 		"react-native": "0.45.1",
 		"react-native-device-info": "^0.10.2",
+		"react-native-elements": "^0.13.0",
 		"react-native-icons": "^0.7.1",
 		"react-native-material-ui": "^1.12.0",
 		"react-native-sleek-loading-indicator": "^0.1.3",
