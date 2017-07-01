@@ -129,39 +129,39 @@ logoutDialog(){
           >
             <BottomNavigation.Action
               key="Track"
-              icon="today"
+              icon="gps-fixed"
               label="Track"
-              style={{ container: { minWidth: null } }}
+              style={{ container: { minWidth: null , fontSize:2} }}
               onPress={() => this.setState({ active: 'Track' })}
             />
             <BottomNavigation.Action
               key="MCubeX"
-              icon="person"
+              icon="clear"
               label="MCubeX"
-              style={{ container: { minWidth: null } }}
+              style={{ container: { minWidth: null , fontSize:5} }}
               onPress={() => {
                 this.setState({ active: 'MCubeX' });
               }}
             />
             <BottomNavigation.Action
               key="IVRS"
-              icon="map"
+              icon="games"
               label="IVRS"
-              style={{ container: { minWidth: null } }}
+              style={{ container: { minWidth: null , fontSize:5} }}
               onPress={() => this.setState({ active: 'IVRS' })}
             />
             <BottomNavigation.Action
               key="Lead"
               icon="chat"
               label="Lead"
-              style={{ container: { minWidth: null } }}
+              style={{ container: { minWidth: null , fontSize:5} }}
               onPress={() => this.setState({ active: 'Lead' })}
             />
             <BottomNavigation.Action
               key="MTracker"
-              icon="chat"
-              label="MTrac"
-              style={{ container: { minWidth: null } }}
+              icon="phone"
+              label="Mtracker"
+              style={{ container: { minWidth: null , fontSize:1} }}
               onPress={() => this.setState({ active: 'MTracker' })}
             />
           </BottomNavigation>
