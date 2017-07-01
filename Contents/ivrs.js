@@ -24,7 +24,7 @@ export default class IVRSView extends Component {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Map View {empName} {empEmail}
+            Welcome to IVRS View {empName} {empEmail}
           </Text>
         </View>
     );

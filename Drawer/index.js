@@ -35,6 +35,8 @@ export default class DrawerMenu extends Component {
   }
 
   render() {
+    const { businessName,empEmail,empName,empContact} = this.props.response;
+
     return (
         <ThemeProvider uiTheme={uiTheme}>
                 <Container>

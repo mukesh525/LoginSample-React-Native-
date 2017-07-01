@@ -24,7 +24,7 @@ export default class MCubeXView extends Component {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Profile View {empName} {empEmail}
+            Welcome to MCubex View {empName} {empEmail}
           </Text>
         </View>
     );

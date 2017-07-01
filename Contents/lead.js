@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 
-export default class ChatView extends Component {
+export default class LeadView extends Component {
   constructor(props, context) {
     super(props, context);
     //console.log(props.response.empName);
@@ -26,7 +26,7 @@ export default class ChatView extends Component {
     return (
       <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to Chat View {empName} {empEmail}
+            Welcome to Lead View {empName} {empEmail}
           </Text>
         </View>
     );

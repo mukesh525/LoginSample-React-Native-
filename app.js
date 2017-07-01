@@ -101,7 +101,8 @@ logoutDialog(){
 }
 
   navigate() {
-    this.props.navigation.navigate('DrawerOpen'); // open drawer
+    const { response} = this.props.navigation.state.params;
+    this.props.navigation.navigate('DrawerOpen', {response : response}); // open drawer
   }
 
   render() {

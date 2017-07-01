@@ -30,17 +30,21 @@ const uiTheme = {
 export default class DrawerMenu extends Component {
   constructor(props, context) {
     super(props, context);
+    const { businessName,empEmail,empName,empContact}
+             = props.navigation.state.params.response;
     this.state = {
         active: 'people',
+        empName:  empName,
+        empEmail: empEmail
       };
-  }
+    }
 
   _setInfoActive() {
     this.setState({ active: 'info' });
   }
 
   render() {
-    return (
+  return (
         <ThemeProvider uiTheme={uiTheme}>
                 <Container>
                     <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
@@ -56,18 +60,18 @@ export default class DrawerMenu extends Component {
                                 style={{
                                     container: { backgroundColor: '#fafafa' },
                                 }}
-                                avatar={<Avatar text={'M'} />}
-                                accounts={[
-                                    { avatar: <Avatar text="H" /> },
-                                    { avatar: <Avatar text="L" /> },
-                                ]}
+                                avatar={<Avatar text={this.state.empName.charAt(0)} />}
+                                // accounts={[
+                                //     { avatar: <Avatar text="H" /> },
+                                //     { avatar: <Avatar text="L" /> },
+                                // ]}
                                 footer={{
                                     dense: true,
                                     centerElement: {
-                                      primaryText: 'Mukesh Jha',
-                                      secondaryText: 'mukeshjha2007@gmail.com',
+                                      primaryText: this.state.empName,
+                                      secondaryText: this.state.empEmail,
                                     },
-                                    rightElement: 'arrow-drop-down',
+                                  //  rightElement: 'arrow-drop-down',
                                 }}
                             />
                             </Drawer.Header>
