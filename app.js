@@ -83,7 +83,7 @@ class TabContentNavigator extends Component {
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
     console.log(this.state.active + "  "+ this.state.key);
-  
+
     return <Component response={this.state.response} data={this.state.key} />;
   }
 }
@@ -103,8 +103,6 @@ export default class App extends Component {
   static navigationOptions = {
     title: 'Menu',
   };
-
-
 
 
 logoutDialog(){
@@ -145,7 +143,7 @@ logoutDialog(){
 
           <BottomNavigation active={this.state.active}
             hidden={false}
-            style={{ container: { position: 'absolute', bottom: 0, left: 0, right: 0 } }}
+            style={{ container: { position: 'absolute', bottom: 0, left: 0, right: 0} }}
           >
             <BottomNavigation.Action
               key="Track"

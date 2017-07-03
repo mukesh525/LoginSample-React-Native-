@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,ListView,
   StatusBar,ScrollView,TouchableHighlight,
-  View,ActivityIndicator
+  View,ActivityIndicator,Platform
 } from 'react-native';
 import Dimensions from 'react-dimensions';
 import { List, ListItem } from 'react-native-elements';
@@ -166,7 +166,9 @@ componentWillMount(){
       }
 
    return (
-      <ListView
+      <ListView  contentContainerStyle={styles.contentContainer}
+          contentInset={{bottom:30}}
+          automaticallyAdjustContentInsets={false}
           dataSource={this.state.dataSource}
           renderRow={this.renderRecord.bind(this)}
           style={styles.listView}
@@ -199,20 +201,20 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   header: {
-    backgroundColor: '#455A64',
+    backgroundColor: '#455A64'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
   innerView :{
     marginTop:5,
@@ -227,24 +229,25 @@ const styles = StyleSheet.create({
           flex:1,
           borderRadius: 8,
           borderColor: '#000',
-          borderWidth: 1 ,
+          borderWidth: 1
      },
    title :{
        fontSize: 10,
-       fontWeight: 'bold',
+       fontWeight: 'bold'
 
      },
    empty :{
          fontSize: 25,
-          color:'red',
-         fontWeight: 'normal',
-
-       },
+         color:'red',
+         fontWeight: 'normal'
+   },
    subtitle :{
      fontSize: 10,
      color:'red',
-     fontWeight:'normal',
-
-          }
+     fontWeight:'normal'
+  } ,
+    contentContainer: {
+     paddingBottom: (Platform.OS === 'ios') ? 10 : 30,
+   }
 
 });
