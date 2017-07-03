@@ -101,14 +101,15 @@ export default class TrackView extends Component {
 
      return (
              <TouchableHighlight underlayColor='#99d9f4' onPress={() => this.onLearnMore(record)}>
+
                  <View style ={styles.outerView}>
                      <View style={styles.innerView}>
-                             <Text style={styles.title} >Group</Text>
+                             <Text style={styles.title} > {record.groupname ? 'Group' : 'Employee'}</Text>
                              <Text style={styles.title} >Status</Text>
                      </View>
                      <View style={styles.innerView}>
-                             <Text style={styles.subtitle} >{record.groupname}</Text>
-                             <Text style={styles.subtitle} >{record.status}</Text>
+                             <Text style={styles.subtitle} >{record.groupname || record.empName}</Text>
+                             <Text style={styles.subtitle} > {(record.status === '0') ? 'Missed' : ((record.status === '1')? 'Inbound' : ((record.status === '2')? 'Outbound' :record.status )) } </Text>
                      </View>
 
                      <View style={styles.innerView}>
@@ -117,7 +118,7 @@ export default class TrackView extends Component {
                      </View>
                      <View style={styles.innerView}>
                              <Text style={styles.subtitle} >{record.callfrom}</Text>
-                             <Text style={styles.subtitle} >{record.calltime}</Text>
+                             <Text style={styles.subtitle} >{record.calltime || record.starttime }</Text>
                      </View>
                     <View style={styles.separator} />
                  </View>
