@@ -100,7 +100,7 @@ export default class TrackView extends Component {
  renderRecord(record, rowID) {
 
      return (
-             <TouchableHighlight>
+             <TouchableHighlight underlayColor='#99d9f4' onPress={() => this.onLearnMore(record)}>
                  <View style ={styles.outerView}>
                      <View style={styles.innerView}>
                              <Text style={styles.title} >Group</Text>
@@ -125,8 +125,9 @@ export default class TrackView extends Component {
         );
     }
 
- onLearnMore = (user) => {
-   this.props.navigation.navigate('Details', { ...user });
+ onLearnMore = (record) => {
+    console.log("detail tapped")
+   //this.props.navigation.navigate('Details', { ...user });
  };
 
 
@@ -175,7 +176,7 @@ componentWillMount(){
           enableEmptySections = {true}
           renderFooter={this.renderFooter.bind(this)}
           onEndReached={this.onEndReached.bind(this)}
-          onPress={() => this.onLearnMore(record)}
+
           />
       );
   }
