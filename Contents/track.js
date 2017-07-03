@@ -6,9 +6,9 @@ import {
   StatusBar,ScrollView,TouchableHighlight,
   View,ActivityIndicator
 } from 'react-native';
+import Dimensions from 'react-dimensions';
 import { List, ListItem } from 'react-native-elements';
-
-
+//var RefreshableListView = require('../app/RefreshableListView')
 export default class TrackView extends Component {
   constructor(props, context) {
     super(props, context);
@@ -94,7 +94,7 @@ componentDidUpdate() {
 
  }
 
- renderRecord(record) {
+ renderRecord(record, rowID) {
 
      return (
              <TouchableHighlight>
@@ -127,12 +127,27 @@ componentDidUpdate() {
  };
 
 
+ onEndReached() {
+     if (!this.state.waiting) {
+         this.setState({waiting: true});
+         console.log("Load More Called")
+        // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
+        this.setState({waiting: false});
+     }
+ }
+
+ renderFooter() {
+     if (this.state.waiting) {
+         return <ActivityIndicator size='large' text = 'Please wait' />;
+     } else {
+         return <Text>~</Text>;
+     }
+ }
+
 componentWillMount(){
   this._initReport(this.state.key)
 
 }
-
-
 
 
 
@@ -149,6 +164,8 @@ componentWillMount(){
           renderRow={this.renderRecord.bind(this)}
           style={styles.listView}
           enableEmptySections = {true}
+          renderFooter={this.renderFooter.bind(this)}
+          onEndReached={this.onEndReached.bind(this)}
           onPress={() => this.onLearnMore(record)}
           />
       );
@@ -199,6 +216,9 @@ const styles = StyleSheet.create({
           backgroundColor: 'powderblue',
           padding :10,
           flex:1,
+          borderRadius: 8,
+          borderColor: '#000',
+          borderWidth: 1 ,
      },
    title :{
        fontSize: 10,
