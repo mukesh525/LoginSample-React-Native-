@@ -20,6 +20,7 @@
 		"react-native-elements": "^0.13.0",
 		"react-native-icons": "^0.7.1",
 		"react-native-material-ui": "^1.12.0",
+		"react-native-modal-dropdown": "^0.4.4",
 		"react-native-sleek-loading-indicator": "^0.1.3",
 		"react-native-vector-icons": "^4.0.0",
 		"react-navigation": "^1.0.0-beta.11"

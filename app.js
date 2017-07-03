@@ -83,6 +83,7 @@ class TabContentNavigator extends Component {
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
     console.log(this.state.active + "  "+ this.state.key);
+  
     return <Component response={this.state.response} data={this.state.key} />;
   }
 }

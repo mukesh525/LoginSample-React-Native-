@@ -15,6 +15,7 @@ export default class TrackView extends Component {
     this.state = {
       response: props.response,
       isLoading: false,
+      isLoaded: false,
       message:'',
       key:props.data,
       records:[],
@@ -24,40 +25,30 @@ export default class TrackView extends Component {
   }
 
 
-
-  shouldComponentUpdate(nextProps, nextState) {
-    //console.log(nextState)
-    //console.log(nextProps)
-    //console.log(this.state)
-    return (nextProps.data != this.state.key)
-
-
-    }
-
-
-
-componentDidUpdate() {
-  console.log("componentDidUpdate called "+this.state.key)
-   this._initReport();
-}
-
  componentWillReceiveProps(newProps){
-      this.setState({
+     this.setState({
         key: newProps.data,
         response: newProps.response,
       });
+
+      if(newProps != this.state) {
+         this._initReport(newProps.data);
+        console.log('props differ');
+      }else{
+        console.log('props same');
+      }
   }
 
-  _initReport() {
+  _initReport(key) {
     this.setState({ isLoading: true ,message: ''});
 
-    console.log("_initReport called "+this.state.key  + "  authKey   " +this.state.response.authKey)
+    console.log("_initReport called "+key+ "  authKey   " +this.state.response.authKey)
 
     var form = new FormData();
     form.append('authKey', this.state.response.authKey);
     form.append('limit', '10');
     form.append('ofset', '0');
-    form.append('type', this.state.key);
+    form.append('type', key);
     form.append('gid', '0');
 
     fetch('https://mcube.vmctechnologies.com/mobappv1/getList', {
@@ -73,6 +64,7 @@ componentDidUpdate() {
     .catch(error =>
        this.setState({
         isLoading: false,
+        isLoaded: false,
         message: 'Something bad happened ' + error
      })
    ).done({
@@ -82,15 +74,26 @@ componentDidUpdate() {
    }
 
    _handleResponse(response) {
+     if(response.code =='202'){
      console.log("_handleResponse called "+this.state.key)
      console.log(response)
      productArray = response.records;
      console.log(this.state.key);
      this.setState({ isLoading: false , message: response.code ,
           records :response.records,
-          dataSource: this.state.dataSource.cloneWithRows(response.records)
+          isLoaded: true,
+          dataSource: this.state.dataSource.cloneWithRows(response.records || [])
         });
-    //this.forceUpdate();
+    }
+    else{
+      console.log("else called response    " )
+      this.setState({ isLoading: false , message: response.msg ,
+           records :[],
+           isLoaded: true,
+           dataSource: this.state.dataSource.cloneWithRows(response.records || [])
+
+         });
+    }
 
  }
 
@@ -132,15 +135,15 @@ componentDidUpdate() {
          this.setState({waiting: true});
          console.log("Load More Called")
         // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
-        this.setState({waiting: false});
+        //this.setState({waiting: false});
      }
  }
 
  renderFooter() {
-     if (this.state.waiting) {
-         return <ActivityIndicator size='large' text = 'Please wait' />;
+     if (this.state.waiting && this.state.dataSource.getRowCount() > 0) {
+         return <ActivityIndicator />;
      } else {
-         return <Text>~</Text>;
+         return <View/>
      }
  }
 
@@ -155,9 +158,13 @@ componentWillMount(){
     console.log("render called")
     const { businessName,empEmail,empName,empContact} = this.props.response;
     var records = this.state.records;
-     if (this.state.isLoading) {
+      if (this.state.isLoading) {
           return this.renderLoadingView();
+       }
+       else if(this.state.dataSource.getRowCount() < 1){
+          return <View style ={styles.container} ><Text style ={styles.empty}> No Records Available </Text></View> ;
       }
+
    return (
       <ListView
           dataSource={this.state.dataSource}
@@ -172,7 +179,8 @@ componentWillMount(){
   }
 
   renderLoadingView() {
-      return (
+
+   return (
         <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
       );
     }
@@ -188,7 +196,8 @@ componentWillMount(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    flexDirection:'column',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
@@ -225,8 +234,15 @@ const styles = StyleSheet.create({
        fontWeight: 'bold',
 
      },
+   empty :{
+         fontSize: 25,
+          color:'red',
+         fontWeight: 'normal',
+
+       },
    subtitle :{
      fontSize: 10,
+     color:'red',
      fontWeight:'normal',
 
           }
