@@ -104,12 +104,12 @@ export default class TrackView extends Component {
 
                  <View style ={styles.outerView}>
                      <View style={styles.innerView}>
-                             <Text style={styles.title} > {record.groupname ? 'Group' : 'Employee'}</Text>
+                             <Text style={styles.title} >{record.groupname ? 'Group' : 'Employee'}</Text>
                              <Text style={styles.title} >Status</Text>
                      </View>
                      <View style={styles.innerView}>
                              <Text style={styles.subtitle} >{record.groupname || record.empName}</Text>
-                             <Text style={styles.subtitle} > {(record.status === '0') ? 'Missed' : ((record.status === '1')? 'Inbound' : ((record.status === '2')? 'Outbound' :record.status )) } </Text>
+                             <Text style={styles.subtitle} >{(record.status === '0') ? 'Missed' : ((record.status === '1')? 'Inbound' : ((record.status === '2')? 'Outbound' :record.status )) } </Text>
                      </View>
 
                      <View style={styles.innerView}>
