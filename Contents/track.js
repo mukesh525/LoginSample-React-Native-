@@ -27,25 +27,19 @@ export default class TrackView extends Component {
 
 
  componentWillReceiveProps(newProps){
-     this.setState({
+       this.setState({
         key: newProps.data,
         response: newProps.response,
         refreshing: false,
+      }, function () {
+          this._initReport(this.state.key)
       });
 
-      if(newProps != this.state) {
-         this._initReport(newProps.data);
-        console.log('props differ');
-      }else{
-        console.log('props same');
-      }
   }
 
   _initReport(key) {
     this.setState({ isLoading: !this.state.refreshing ,message: ''});
     console.log("_initReport called "+key+ "  authKey   " +this.state.refreshing)
-
-  //  console.log("_initReport called "+key+ "  authKey   " +this.state.refreshing)
     var form = new FormData();
     form.append('authKey', this.state.response.authKey);
     form.append('limit', '10');
