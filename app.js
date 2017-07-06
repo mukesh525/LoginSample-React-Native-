@@ -8,21 +8,17 @@ import {
   View
 } from 'react-native';
 import { Navigator, NativeModules } from 'react-native';
-
-
 import { Toolbar, BottomNavigation, Icon } from 'react-native-material-ui';
 import Container from './Container';
-
-import { TabRouter } from 'react-navigation';
+import { TabRouter ,StackNavigator} from 'react-navigation';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-
 import TrackView from './Contents/track';
 import MCubeXView from './Contents/mcubex';
 import IVRSView from './Contents/ivrs';
 import LeadView from './Contents/lead';
 import MTrackerView from './Contents/mtracker';
 import uiTheme from './app/theme';
-
+import DetailView from './Pages/detail'
  const uiThemee = {
   palette: {
     primaryColor: COLOR.orange700,
@@ -37,9 +33,16 @@ import uiTheme from './app/theme';
 }
 
 
+const ModuleNavigator = StackNavigator({
+       TrackC: { screen: TrackView },
+       Detail: {screen: DetailView },
+     },{
+          initialRouteName: 'TrackC',
+    });
+
 
 const TabRoute = TabRouter({
-  Track: { screen: TrackView },
+  Track: { screen:TrackView },
   MCubeX: { screen: TrackView },
   IVRS: { screen: TrackView },
   Lead: {screen: TrackView},
@@ -50,49 +53,52 @@ const TabRoute = TabRouter({
 );
 
 class TabContentNavigator extends Component {
-  constructor(props, context) {
+    constructor(props, context) {
     super(props, context);
+    console.log(props);
     this.state = {
       active: props.value.active,
       response: props.response,
       key:props.value.key,
+      method:props.method,
     };
   }
 
-
-
-
-
-
-
   //this method will not get called first time
   componentWillReceiveProps(newProps){
+    //console.log(this.state);
     this.setState({
       active: newProps.value.active,
       key: newProps.value.key,
       response: newProps.response,
+
     });
+       //console.log(newProps);
   }
 
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
-    console.log(this.state.active + "  "+ this.state.key);
-
-    return <Component response={this.state.response} data={this.state.key} />;
+    return <Component screenProps = {this.state}  response = {this.state.response} data = {this.state.key} method ={this.props.method} />;
   }
 }
 
 export default class App extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
+    this._navigateTo = this._navigateTo.bind(this);
+      this.state = {
       active: 'Track',
       key:'track',
 
     };
-
   }
+
+  _navigateTo(path,key) {
+      console.log(key)
+      this.props.navigation.navigate(path,{key: key})
+     }
+
+
 
   static navigationOptions = {
     title: 'Menu',
@@ -133,7 +139,7 @@ logoutDialog(){
             onRightElementPress = {() => this.logoutDialog()}
           />
 
-          <TabContentNavigator value = {this.state} response ={response} key = {this.state} />
+          <TabContentNavigator value = {this.state} response ={response} key = {this.state} method ={this._navigateTo} />
 
           <BottomNavigation active={this.state.active}
             hidden={false}

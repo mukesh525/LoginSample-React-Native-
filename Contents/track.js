@@ -10,36 +10,45 @@ import Dimensions from 'react-dimensions';
 import { List, ListItem } from 'react-native-elements';
 //var RefreshableListView = require('../app/RefreshableListView')
 export default class TrackView extends Component {
+
+  static navigationOptions = {
+      header: null ,
+    };
+
+
   constructor(props, context) {
     super(props, context);
+    console.log("Key Recived " +this.props.navigation);
     this.state = {
-      response: props.response,
+      response: props.screenProps.response,
       isLoading: false,
       isLoaded: false,
       message:'',
       refreshing:false,
-      key:props.data,
+      key:props.screenProps.key,
       records:[],
       dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 }),
     }
-
   }
 
 
  componentWillReceiveProps(newProps){
+      console.log(this.props.navigation)
+      console.log("Track componentWillReceiveProps ");
+      console.log(this.state)
+      //this.state.method;
        this.setState({
-        key: newProps.data,
-        response: newProps.response,
+        key: newProps.screenProps.key,
+        response: newProps.screenProps.response,
         refreshing: false,
       }, function () {
           this._initReport(this.state.key)
       });
-
   }
 
   _initReport(key) {
     this.setState({ isLoading: !this.state.refreshing ,message: ''});
-    console.log("_initReport called "+key+ "  authKey   " +this.state.refreshing)
+    console.log("_initReport called "+key+ "  authKey   " +this.state.response.authKey)
     var form = new FormData();
     form.append('authKey', this.state.response.authKey);
     form.append('limit', '10');
@@ -126,8 +135,8 @@ export default class TrackView extends Component {
     }
 
  onLearnMore = (record) => {
-    console.log("detail tapped")
-   //this.props.navigation.navigate('Details', { ...user });
+     this.props.method('Details',this.state.key);
+
  };
 
 
@@ -135,8 +144,6 @@ export default class TrackView extends Component {
      if (!this.state.waiting) {
          this.setState({waiting: true});
          console.log("Load More Called")
-        // this.fetchData() // fetching new data, ended with this.setState({waiting: false});
-        //this.setState({waiting: false});
      }
  }
 
@@ -173,7 +180,7 @@ componentWillMount(){
 
   render() {
     console.log("render called")
-    const { businessName,empEmail,empName,empContact} = this.props.response;
+  //  const { businessName,empEmail,empName,empContact} = this.props.response;
     var records = this.state.records;
       if (this.state.isLoading) {
           return this.renderLoadingView();

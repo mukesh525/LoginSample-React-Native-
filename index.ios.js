@@ -11,6 +11,7 @@
  import BookmarkView from './Pages/bookmark';
  import CalendarView from './Pages/calendar';
  import ClientView from './Pages/client';
+ import DetailView from './Pages/detail'
  import InfoView from './Pages/info';
  import SettingsView from './Pages/setting';
  import { DrawerNavigator, StackNavigator,TabNavigator } from 'react-navigation';
@@ -19,20 +20,20 @@
 
 
  var LoginView = require('./app/LoginView.js');
-
- var project = React.createClass({
-     render: function() {
-         return (
-             <NavigatorIOS
-                 style={{flex:1}}
-                 initialRoute={{
-                     component: LoginView,
-                         title: 'ProfileView',
-                 }}
-             />
-         );
-     }
- });
+ //
+ // var project = React.createClass({
+ //     render: function() {
+ //         return (
+ //             <NavigatorIOS
+ //                 style={{flex:1}}
+ //                 initialRoute={{
+ //                     component: LoginView,
+ //                         title: 'ProfileView',
+ //                 }}
+ //             />
+ //         );
+ //     }
+ // });
 
 
  const stackNavigator = StackNavigator({
@@ -47,6 +48,7 @@
 
  const easyRNRoute = DrawerNavigator({
    Home: { screen: App},
+   Details: { screen: DetailView},
    Stack :{ screen: stackNavigator}
    }, {
    contentComponent: DrawerMenu,
