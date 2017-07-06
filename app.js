@@ -30,17 +30,11 @@ import uiTheme from './app/theme';
   },
   toolbar: {
     container: {
-      height: 80,
+      height: 70,
       paddingTop: 20
     }
   }
 }
-
-
-
-
-
-
 
 
 
