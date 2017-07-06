@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,ListView,
   StatusBar,ScrollView,TouchableHighlight,
-  View,ActivityIndicator,Platform
+  View,ActivityIndicator,Platform,RefreshControl
 } from 'react-native';
 import Dimensions from 'react-dimensions';
 import { List, ListItem } from 'react-native-elements';
@@ -17,6 +17,7 @@ export default class TrackView extends Component {
       isLoading: false,
       isLoaded: false,
       message:'',
+      refreshing:false,
       key:props.data,
       records:[],
       dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 }),
@@ -29,6 +30,7 @@ export default class TrackView extends Component {
      this.setState({
         key: newProps.data,
         response: newProps.response,
+        refreshing: false,
       });
 
       if(newProps != this.state) {
@@ -40,10 +42,10 @@ export default class TrackView extends Component {
   }
 
   _initReport(key) {
-    this.setState({ isLoading: true ,message: ''});
+    this.setState({ isLoading: !this.state.refreshing ,message: ''});
+    console.log("_initReport called "+key+ "  authKey   " +this.state.refreshing)
 
-    console.log("_initReport called "+key+ "  authKey   " +this.state.response.authKey)
-
+  //  console.log("_initReport called "+key+ "  authKey   " +this.state.refreshing)
     var form = new FormData();
     form.append('authKey', this.state.response.authKey);
     form.append('limit', '10');
@@ -65,6 +67,7 @@ export default class TrackView extends Component {
        this.setState({
         isLoading: false,
         isLoaded: false,
+        refreshing: false,
         message: 'Something bad happened ' + error
      })
    ).done({
@@ -82,6 +85,7 @@ export default class TrackView extends Component {
      this.setState({ isLoading: false , message: response.code ,
           records :response.records,
           isLoaded: true,
+          refreshing: false,
           dataSource: this.state.dataSource.cloneWithRows(response.records || [])
         });
     }
@@ -90,6 +94,7 @@ export default class TrackView extends Component {
       this.setState({ isLoading: false , message: response.msg ,
            records :[],
            isLoaded: true,
+           refreshing: false,
            dataSource: this.state.dataSource.cloneWithRows(response.records || [])
 
          });
@@ -141,6 +146,23 @@ export default class TrackView extends Component {
      }
  }
 
+ _onRefresh() {
+     this.setState({refreshing: true}, function () {
+        console.log(this.state.refreshing);
+         this._initReport(this.state.key)
+    });
+   }
+
+
+   _refreshControl(){
+      return (
+        <RefreshControl
+          refreshing = {this.state.refreshing}
+          onRefresh = {this._onRefresh.bind(this)} />
+      )
+    }
+
+
  renderFooter() {
      if (this.state.waiting && this.state.dataSource.getRowCount() > 0) {
          return <ActivityIndicator />;
@@ -155,7 +177,6 @@ componentWillMount(){
 }
 
 
-
   render() {
     console.log("render called")
     const { businessName,empEmail,empName,empContact} = this.props.response;
@@ -168,7 +189,9 @@ componentWillMount(){
       }
 
    return (
-      <ListView  contentContainerStyle={styles.contentContainer}
+      <ListView
+          contentContainerStyle={styles.contentContainer}
+          refreshControl={this._refreshControl()}
           contentInset={{bottom:30}}
           automaticallyAdjustContentInsets={false}
           dataSource={this.state.dataSource}
