@@ -38,7 +38,7 @@ export default class DetailView extends Component {
           <Container>
             <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
             <Toolbar
-              leftElement="close"
+              leftElement="arrow-back"
 
               onLeftElementPress={() => this.props.navigation.navigate('Home',{data:data})}
               centerElement={data.active}
