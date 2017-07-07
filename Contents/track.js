@@ -17,8 +17,7 @@ export default class TrackView extends Component {
 
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
+     this.state = {
       response: props.screenProps.response,
       isLoading: false,
       isLoaded: false,
@@ -33,9 +32,9 @@ export default class TrackView extends Component {
 
 
  componentWillReceiveProps(newProps){
-      console.log(this.props.navigation)
-      console.log("Track componentWillReceiveProps ");
-      console.log(newProps)
+      //console.log(this.props.navigation)
+    //  console.log("Track componentWillReceiveProps ");
+    //  console.log(newProps)
       this.setState({
         key: newProps.screenProps.key,
         active:newProps.screenProps.active,
@@ -249,7 +248,9 @@ const styles = StyleSheet.create({
 
   },
   outerView :{
-          margin:10,
+          marginTop:10,
+          marginLeft:10,
+          marginRight:10,
           backgroundColor: 'powderblue',
           padding :10,
           flex:1,

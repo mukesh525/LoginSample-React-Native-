@@ -59,15 +59,19 @@ const styles =StyleSheet.create({
         }
     });
 
+const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' })
+      ]
+    });
+
+
 class LoginView extends Component{
 
   static navigationOptions = {
       title: 'Login',
     };
-
-
-
-
 
   constructor(props){
    super(props);
@@ -79,11 +83,40 @@ class LoginView extends Component{
     signedin: false,
     passwordDisplayed: false
    };
+
+    //  var response = AsyncStorage.getItem('response');
+      AsyncStorage.getItem('response').then((response) => {
+             this.setState({value: JSON.parse(response)});
+             console.log(this.state.value);
+      });
+
+
    }
 
    togglePassword() {
       this.setState({ passwordDisplayed: !this.state.passwordDisplayed })
     }
+
+
+      async _getStorageValue(){
+      var value = await AsyncStorage.getItem('response')
+      return JSON.parse(value)
+    }
+
+
+
+
+    componentWillMount() {
+        if(this._getStorageValue().authkey != null){
+        this.props.navigation.dispatch( NavigationActions.navigate({
+         routeName: 'Home',
+         params: {response: this._getStorageValue()},
+        }));
+      }
+    }
+
+
+
 
      componentDidMount() {
          this._loadInitialState().done();
@@ -118,11 +151,13 @@ class LoginView extends Component{
   _handleResponse(response) {
 
   this.setState({ isLoading: false , message: response.code });
-    console.log(response);
-    if(response.code =='200'){
-    this.props.navigation.navigate('Home',{ response: response })
-    //this._navigateTo('Home',response)
-    //navigate('Home',{ response: response })
+     console.log(response);
+     if(response.code =='200'){
+      AsyncStorage.setItem('response', JSON.stringify(response));
+      this.props.navigation.dispatch( NavigationActions.navigate({
+       routeName: 'Home',
+       params: {response: response},
+      }));
   }
   else{
      Alert.alert(
@@ -132,9 +167,7 @@ class LoginView extends Component{
        }
 
 }
-
-
-      _navigateTo = (routeName: string, response :response) => {
+  _navigateTo = (routeName: string, response :response) => {
        const actionToDispatch = NavigationActions.reset({
           index: 0,
           actions: [NavigationActions.navigate({ routeName: routeName ,params: { response: response}})]

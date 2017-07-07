@@ -4,7 +4,7 @@
  * @flow
  */
  import React, { Component } from 'react';
- import { AppRegistry,NavigatorIOS,Text} from 'react-native';
+ import { AppRegistry,NavigatorIOS,Text,AsyncStorage} from 'react-native';
 
  import App from './app';
  import DrawerMenu from './Drawer/drawer-toolbar-ios';
@@ -20,20 +20,18 @@
 
 
  var LoginView = require('./app/LoginView.js');
+
+ // var response =  _getStorageValue();
+ // console.log(response);
  //
- // var project = React.createClass({
- //     render: function() {
- //         return (
- //             <NavigatorIOS
- //                 style={{flex:1}}
- //                 initialRoute={{
- //                     component: LoginView,
- //                         title: 'ProfileView',
- //                 }}
- //             />
- //         );
- //     }
- // });
+ //  async _getStorageValue(){
+ //   var value = await AsyncStorage.getItem('response')
+ //   return JSON.parse(value)
+ // }
+
+
+
+
 
 
  const stackNavigator = StackNavigator({
@@ -66,15 +64,20 @@
     login: {screen: LoginView,
       navigationOptions: {
       title: `Login`,
-      header: true,
+      header: false,
+      gesturesEnabled: false,
     }},
     Home: {screen: easyRNRoute,
       navigationOptions: {
       title: `Home`,
       header: false,
+      gesturesEnabled: false,
   }},
- });
 
+
+
+ });
+//var response = await AsyncStorage.getItem('response');
 
  AppRegistry.registerComponent("LoginSample", () => MainNavigator);
 

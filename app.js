@@ -3,7 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  Alert,
+  Alert,AsyncStorage,
   StatusBar,
   View
 } from 'react-native';
@@ -91,11 +91,15 @@ export default class App extends Component {
   //   console.log("Selcted Active "+data.active);
   //   console.log("Selcted key "+data.key);
   //  }
+     AsyncStorage.getItem('response').then((response) => {
+     this.setState({response: JSON.parse(response)});
+     //console.log("new response")
+     //console.log(this.state.response);
+     });
       this._navigateTo = this._navigateTo.bind(this);
       this.state = {
       active:data != null?data.active:'Track',
       key:data != null?data.key:'track',
-
     };
   }
 
@@ -126,7 +130,9 @@ logoutDialog(){
 }
 
   navigate() {
-    const { response} = this.props.navigation.state.params;
+  //  const { response} = this.props.navigation.state.params;
+    const { response} = this.state.response
+
     this.props.navigation.navigate('DrawerOpen', {response : response}); // open drawer
   }
 

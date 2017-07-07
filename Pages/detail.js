@@ -41,7 +41,7 @@ export default class DetailView extends Component {
               leftElement="arrow-back"
 
               onLeftElementPress={() => this.props.navigation.navigate('Home',{data:data})}
-              centerElement={data.active}
+              centerElement={data.active +" Detail"}
             />
             <View style={styles.container}>
               <Text style={styles.welcome}>
