@@ -26,24 +26,26 @@ export default class DetailView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    console.log('Detail View Prop')
-    console.log(props);
-    console.log(this.props.navigation.state.params)
+  //  console.log('Detail View Prop')
+  //  console.log(props);
+  //  console.log(this.props.navigation.state.params.data)
   }
   render() {
     {
+      const {data} = this.props.navigation.state.params;
       return (
         <ThemeProvider uiTheme={uiTheme}>
           <Container>
             <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
             <Toolbar
               leftElement="close"
-              onLeftElementPress={() => this.props.navigation.navigate('Home',{key: this.props.navigation.state.params.key})}
-              centerElement="Client"
+
+              onLeftElementPress={() => this.props.navigation.navigate('Home',{data:data})}
+              centerElement={data.active}
             />
             <View style={styles.container}>
               <Text style={styles.welcome}>
-                Welcome to Client View
+                Welcome to {data.active} View
               </Text>
             </View>
           </Container>

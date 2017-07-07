@@ -78,24 +78,31 @@ class TabContentNavigator extends Component {
 
   render() {
     const Component = TabRoute.getComponentForRouteName(this.state.active);
-    return <Component screenProps = {this.state}  response = {this.state.response} data = {this.state.key} method ={this.props.method} />;
+    return <Component screenProps = {this.state}  response = {this.state.response}  method ={this.props.method} />;
   }
 }
 
 export default class App extends Component {
   constructor(props, context) {
     super(props, context);
-    this._navigateTo = this._navigateTo.bind(this);
+    console.log("Key Recived ");
+    const data = this.props.navigation.state.params.data;
+  //   if(data != null){
+  //   console.log("Selcted Active "+data.active);
+  //   console.log("Selcted key "+data.key);
+  //  }
+      this._navigateTo = this._navigateTo.bind(this);
       this.state = {
-      active: 'Track',
-      key:'track',
+      active:data != null?data.active:'Track',
+      key:data != null?data.key:'track',
 
     };
   }
 
   _navigateTo(path,key) {
+      console.log("App Navigate method called");
       console.log(key)
-      this.props.navigation.navigate(path,{key: key})
+      this.props.navigation.navigate(path,{data: key})
      }
 
 

@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Dimensions from 'react-dimensions';
 import { List, ListItem } from 'react-native-elements';
-//var RefreshableListView = require('../app/RefreshableListView')
 export default class TrackView extends Component {
 
   static navigationOptions = {
@@ -18,7 +17,7 @@ export default class TrackView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    console.log("Key Recived " +this.props.navigation);
+
     this.state = {
       response: props.screenProps.response,
       isLoading: false,
@@ -26,6 +25,7 @@ export default class TrackView extends Component {
       message:'',
       refreshing:false,
       key:props.screenProps.key,
+      active:props.screenProps.active,
       records:[],
       dataSource: new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2 }),
     }
@@ -35,10 +35,10 @@ export default class TrackView extends Component {
  componentWillReceiveProps(newProps){
       console.log(this.props.navigation)
       console.log("Track componentWillReceiveProps ");
-      console.log(this.state)
-      //this.state.method;
-       this.setState({
+      console.log(newProps)
+      this.setState({
         key: newProps.screenProps.key,
+        active:newProps.screenProps.active,
         response: newProps.screenProps.response,
         refreshing: false,
       }, function () {
@@ -135,7 +135,7 @@ export default class TrackView extends Component {
     }
 
  onLearnMore = (record) => {
-     this.props.method('Details',this.state.key);
+     this.props.method('Details',this.state);
 
  };
 
