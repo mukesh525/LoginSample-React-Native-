@@ -17,7 +17,7 @@ const uiTheme = {
  },
  toolbar: {
    container: {
-     height: 80,
+     height: 70,
      paddingTop: 20
    }
  }
@@ -45,7 +45,7 @@ export default class DetailView extends Component {
             />
             <View style={styles.container}>
               <Text style={styles.welcome}>
-                Welcome to {data.active} View
+                Welcome to {data.active} Detail View
               </Text>
             </View>
           </Container>

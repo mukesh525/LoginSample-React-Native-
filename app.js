@@ -100,8 +100,8 @@ export default class App extends Component {
   }
 
   _navigateTo(path,key) {
-      console.log("App Navigate method called");
-      console.log(key)
+      //console.log("App Navigate method called");
+      //console.log(key)
       this.props.navigation.navigate(path,{data: key})
      }
 
