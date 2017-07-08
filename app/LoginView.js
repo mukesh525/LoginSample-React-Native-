@@ -45,7 +45,7 @@ const styles =StyleSheet.create({
            height:65,
            margin:15,
            borderRadius: 25,
-           borderColor: '#FFF',
+           borderColor: '#7a42f4',
            borderWidth: 1
 
         },
@@ -257,77 +257,121 @@ class LoginView extends Component{
 
 
 
+      renderLoadingView() {
+         return (
+            <View style={styles.container}>
+            <View style = {{
+              backgroundColor: '#C0C0C0',
+              padding :2,
+              margin:5,
+              margin:120,
+              borderRadius: 10,
+              borderColor: '#FF4500',
+              borderWidth: 2}}>
+            <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
+            </View>
+             </View>
+          );
+        }
+
+
+        renderLogingView() {
+          const user = (<Icon name = "user" size={30}  />)
+          const password = (<Icon name = "lock" size={30}  />)
+          const show = (<Font name = "eye" size={25}/>)
+          const hide = (<Font name = "eye-slash" size={25}/>)
+          var isShow = this.state.passwordDisplayed? (<Font name = "eye" size={25}/>):(<Font name = "eye-slash" size={25}/>);
+          var spinner = this.state.isLoading ?( <ActivityIndicator size='large' text = 'Please wait'/> ) : ( <View/>);
+
+           return (
+             <View style={styles.container}>
+             <View style = {{
+               backgroundColor: '#C0C0C0',
+               padding :2,
+               margin:5,
+               borderRadius: 10,
+               borderColor: '#FF4500',
+               borderWidth: 2}}>
+
+                  <View style={styles.innerView}>
+                  <Image style = {styles.logo} source = {require('../img/logo.png')} />
+                  </View>
+                  <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
+                    borderWidth: 2, borderRadius: 10}}>
+                         <View style={{width: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{user}</View>
+                         <View style={{width: 300, height: 40,marginRight: 5}}>
+                         <TextInput
+                         style={styles.input}
+                         underlineColorAndroid = "transparent"
+                         placeholderTextColor = "#9a73ef"
+                         inlineImageLeft = {"account"}
+                         placeholder="Enter Username"
+                         autoCapitalize = "none"
+                         textAlign = "left"
+                         textColor= "#000"
+                         value = {this.state.email}
+                         onChangeText={(text) => this.onChangeEmail(text)}  />
+                        </View>
+                  </View>
+                 <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
+                 borderRadius: 10,borderWidth: 2,}}>
+                        <View style={{width: 40, height: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{password}</View>
+                        <View style={{width: 260, height: 40}}>
+                        <TextInput style={styles.input}
+                         underlineColorAndroid="transparent"
+                         placeholderTextColor ="#9a73ef"
+                         placeholder="Enter Password"
+                         textAlign = "left"
+                         textColor= "#000"
+                         password={!this.state.passwordDisplayed}
+                         value = {this.state.password}
+                         onChangeText={(text) => this.onChangePassword(text)}
+                       />
+                      </View>
+                      <TouchableOpacity
+                        onPress={this.togglePassword.bind(this)}
+                        style={{width: 25, height: 25,marginTop:5,flexDirection: 'row',justifyContent:'center'}}>
+                        {isShow}
+                       </TouchableOpacity>
+                 </View>
+
+                 <View style={{flexDirection: 'row',margin: 3,marginBottom:10}}>
+
+                        <View style={{width: 350, height: 40}}>
+                         <TouchableHighlight  style = {styles.button}  onPress={this._onLoginClicked.bind(this)} >
+                         <Text style = {styles.submitButtonText}>Login</Text>
+                        </TouchableHighlight>
+                     </View>
+               </View>
+         </View>
+       </View>
+
+            );
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     render(){
-       const user = (<Icon name = "user" size={30}  />)
-       const password = (<Icon name = "lock" size={30}  />)
-       const show = (<Font name = "eye" size={25}/>)
-       const hide = (<Font name = "eye-slash" size={25}/>)
-       var isShow = this.state.passwordDisplayed? (<Font name = "eye" size={25}/>):(<Font name = "eye-slash" size={25}/>);
-       var spinner = this.state.isLoading ?( <ActivityIndicator size='large' text = 'Please wait'/> ) : ( <View/>);
+      if (this.state.isLoading) {
+          return this.renderLoadingView();
+      } else {
+          return this.renderLoadingView();
+       }
        return (
        <View style={styles.container}>
-           <View style = {{
-             backgroundColor: '#C0C0C0',
-             padding :2,
-             margin:5,
-             borderRadius: 10,
-             borderColor: '#FF4500',
-             borderWidth: 2}}>
-
-                <View style={styles.innerView}>
-                <Image style = {styles.logo} source = {require('../img/logo.png')} />
-                </View>
-                <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
-                  borderWidth: 2, borderRadius: 10}}>
-                       <View style={{width: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{user}</View>
-                       <View style={{width: 300, height: 40,marginRight: 5}}>
-                       <TextInput
-                       style={styles.input}
-                       underlineColorAndroid = "transparent"
-                       placeholderTextColor = "#9a73ef"
-                       inlineImageLeft = {"account"}
-                       placeholder="Enter Username"
-                       autoCapitalize = "none"
-                       textAlign = "left"
-                       textColor= "#000"
-                       value = {this.state.email}
-                       onChangeText={(text) => this.onChangeEmail(text)}  />
-                      </View>
-                </View>
-               <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
-               borderRadius: 10,borderWidth: 2,}}>
-                      <View style={{width: 40, height: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{password}</View>
-                      <View style={{width: 260, height: 40}}>
-                      <TextInput style={styles.input}
-                       underlineColorAndroid="transparent"
-                       placeholderTextColor ="#9a73ef"
-                       placeholder="Enter Password"
-                       textAlign = "left"
-                       textColor= "#000"
-                       password={!this.state.passwordDisplayed}
-                       value = {this.state.password}
-                       onChangeText={(text) => this.onChangePassword(text)}
-                     />
-                    </View>
-                    <TouchableOpacity
-                      onPress={this.togglePassword.bind(this)}
-                      style={{width: 25, height: 25,marginTop:5,flexDirection: 'row',justifyContent:'center'}}>
-                      {isShow}
-                     </TouchableOpacity>
-               </View>
-
-               <View style={{flexDirection: 'row',margin: 3,marginBottom:10}}>
-
-                      <View style={{width: 350, height: 40}}>
-                       <TouchableHighlight  style = {styles.button}  onPress={this._onLoginClicked.bind(this)} >
-                       <Text style = {styles.submitButtonText}>Login</Text>
-                      </TouchableHighlight>
-                   </View>
-             </View>
-       </View>
-            {spinner}
-
       </View>
       );
       }
