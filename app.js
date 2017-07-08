@@ -84,18 +84,16 @@ class TabContentNavigator extends Component {
 
 export default class App extends Component {
   constructor(props, context) {
-    super(props, context);
-    console.log("Key Recived ");
-    const data = this.props.navigation.state.params.data;
+     super(props, context);
+     console.log("Key Recived ");
+     const data = this.props.navigation.state.params.data;
   //   if(data != null){
   //   console.log("Selcted Active "+data.active);
   //   console.log("Selcted key "+data.key);
   //  }
-     AsyncStorage.getItem('response').then((response) => {
-     this.setState({response: JSON.parse(response)});
-     //console.log("new response")
-     //console.log(this.state.response);
-     });
+      AsyncStorage.getItem('response').then((response) => {
+      this.setState({response: JSON.parse(response)});
+      });
       this._navigateTo = this._navigateTo.bind(this);
       this.state = {
       active:data != null?data.active:'Track',
@@ -104,8 +102,6 @@ export default class App extends Component {
   }
 
   _navigateTo(path,key) {
-      //console.log("App Navigate method called");
-      //console.log(key)
       this.props.navigation.navigate(path,{data: key})
      }
 
@@ -116,17 +112,22 @@ export default class App extends Component {
   };
 
 
+
 logoutDialog(){
   Alert.alert(
     'Logout',
     'Do you want to logout',
     [
       {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-      {text: 'Yes', onPress: () => this.props.navigation.navigate('login')},
+      {text: 'Yes', onPress: () => this. _logout()},
     ]
   )
 
+}
 
+ _logout() {
+     AsyncStorage.removeItem('response') ;
+     this.props.navigation.navigate('login')
 }
 
   navigate() {

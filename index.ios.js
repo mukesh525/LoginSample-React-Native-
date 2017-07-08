@@ -21,13 +21,14 @@
 
  var LoginView = require('./app/LoginView.js');
 
- // var response =  _getStorageValue();
- // console.log(response);
- //
+  var response =  LoginView.response;
+     console.log(response);
+ // //
  //  async _getStorageValue(){
  //   var value = await AsyncStorage.getItem('response')
  //   return JSON.parse(value)
  // }
+
 
 
 

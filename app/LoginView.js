@@ -6,45 +6,57 @@ import {
   Picker,View,AppState,Alert,Image,ActivityIndicator,
   TextInput,TouchableHighlight,TouchableOpacity,Platform
 } from 'react-native';
-
+import Font from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { NavigationActions } from 'react-navigation'
 import Logo from './logo';
 //import Input from 'react-input-password';.
+
 const styles =StyleSheet.create({
 
   container:{
     paddingTop: 30,
-    flex:1,
+    flex:10,
     flexDirection:'column',
     justifyContent:'center',
+    backgroundColor:'#D3D3D3',
     marginBottom:40
-   },
-    input :{
-            height:40,
-            margin:15,
-            borderColor: '#7a42f4',
-            borderWidth: 1
+  },
 
+   input :{
+            height:40,
+            padding:20
       },
       button: {
         backgroundColor: '#7a42f4',
         height:40,
-        margin:15,
-        padding:10,
-        alignItems :'center'
+        borderRadius: 10,
+        padding:5,
+        alignItems :'center',
+        flexDirection:'column',
+        justifyContent:'center',
     },
     submitButtonText:{
          color: 'white',
-         fontSize:20
+         fontSize:20,
       },
       logo:{
-           width: 75,
-           height:75,
-           margin:15
+           width: 65,
+           height:65,
+           margin:15,
+           borderRadius: 25,
+           borderColor: '#FFF',
+           borderWidth: 1
 
         },
         innerView :{
           margin:0,
+          flexDirection:'row',
+          justifyContent:'center',
+
+        },
+          inputView :{
+          flex:1,
           flexDirection:'row',
           justifyContent:'center'
 
@@ -66,7 +78,7 @@ const resetAction = NavigationActions.reset({
       ]
     });
 
-
+var response = [];
 class LoginView extends Component{
 
   static navigationOptions = {
@@ -87,7 +99,7 @@ class LoginView extends Component{
     //  var response = AsyncStorage.getItem('response');
       AsyncStorage.getItem('response').then((response) => {
              this.setState({value: JSON.parse(response)});
-             console.log(this.state.value);
+             this.response =response;
       });
 
 
@@ -107,19 +119,27 @@ class LoginView extends Component{
 
 
     componentWillMount() {
-        if(this._getStorageValue().authkey != null){
-        this.props.navigation.dispatch( NavigationActions.navigate({
-         routeName: 'Home',
-         params: {response: this._getStorageValue()},
-        }));
-      }
+
+      AsyncStorage.getItem('response').then((response) => {
+              var response = JSON.parse(response)
+              console.log("data exists "+response.authKey);
+              if(response != null){
+              console.log("data exists " + response.authkey);
+              this.props.navigation.dispatch( NavigationActions.navigate({
+              routeName: 'Home',
+              params: {response: response},
+             }));
+            }
+        });
     }
 
 
 
 
      componentDidMount() {
-         this._loadInitialState().done();
+
+
+        this._loadInitialState().done();
        }
 
 
@@ -162,7 +182,7 @@ class LoginView extends Component{
   else{
      Alert.alert(
                "POST Response",
-               "Response Body -> "  + response.authKey,
+               "Response Body -> "  + response.code,
            )
        }
 
@@ -239,40 +259,75 @@ class LoginView extends Component{
 
 
     render(){
+       const user = (<Icon name = "user" size={30}  />)
+       const password = (<Icon name = "lock" size={30}  />)
+       const show = (<Font name = "eye" size={25}/>)
+       const hide = (<Font name = "eye-slash" size={25}/>)
+       var isShow = this.state.passwordDisplayed? (<Font name = "eye" size={25}/>):(<Font name = "eye-slash" size={25}/>);
        var spinner = this.state.isLoading ?( <ActivityIndicator size='large' text = 'Please wait'/> ) : ( <View/>);
        return (
        <View style={styles.container}>
-           <View style={styles.innerView}>
-           <Image style = {styles.logo} source = {require('../img/logo.png')} />
-           </View>
-           <TextInput
-           style={styles.input}
-           underlineColorAndroid = "transparent"
-           placeholderTextColor = "#9a73ef"
-           inlineImageLeft = {"account"}
-           placeholder="Enter Username!"
-           autoCapitalize = "none"
-           textAlign = "center"
-           value = {this.state.email}
-           onChangeText={(text) => this.onChangeEmail(text)}
+           <View style = {{
+             backgroundColor: '#C0C0C0',
+             padding :2,
+             margin:5,
+             borderRadius: 10,
+             borderColor: '#FF4500',
+             borderWidth: 2}}>
 
-         />
-          <Text style={styles.error}>{this.state.error}</Text>
-          <TextInput style={styles.input}
-           underlineColorAndroid="transparent"
-           placeholderTextColor ="#9a73ef"
-           placeholder="Enter Password!"
-           textAlign = "center"
-           password={true}
-           value = {this.state.password}
-           onChangeText={(text) => this.onChangePassword(text)}
-         />
-          <TouchableHighlight  style = {styles.button}  onPress={this._onLoginClicked.bind(this)} >
-            <Text style = {styles.submitButtonText}>    Login
-             </Text>
-          </TouchableHighlight>
-        {spinner}
-          <Text style={styles.description}>{this.state.message}</Text>
+                <View style={styles.innerView}>
+                <Image style = {styles.logo} source = {require('../img/logo.png')} />
+                </View>
+                <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
+                  borderWidth: 2, borderRadius: 10}}>
+                       <View style={{width: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{user}</View>
+                       <View style={{width: 300, height: 40,marginRight: 5}}>
+                       <TextInput
+                       style={styles.input}
+                       underlineColorAndroid = "transparent"
+                       placeholderTextColor = "#9a73ef"
+                       inlineImageLeft = {"account"}
+                       placeholder="Enter Username"
+                       autoCapitalize = "none"
+                       textAlign = "left"
+                       textColor= "#000"
+                       value = {this.state.email}
+                       onChangeText={(text) => this.onChangeEmail(text)}  />
+                      </View>
+                </View>
+               <View style={{flexDirection: 'row',margin: 5,  borderColor: '#7a42f4',
+               borderRadius: 10,borderWidth: 2,}}>
+                      <View style={{width: 40, height: 40,marginLeft:5, height: 40,flexDirection: 'column',justifyContent:'center'}}>{password}</View>
+                      <View style={{width: 260, height: 40}}>
+                      <TextInput style={styles.input}
+                       underlineColorAndroid="transparent"
+                       placeholderTextColor ="#9a73ef"
+                       placeholder="Enter Password"
+                       textAlign = "left"
+                       textColor= "#000"
+                       password={!this.state.passwordDisplayed}
+                       value = {this.state.password}
+                       onChangeText={(text) => this.onChangePassword(text)}
+                     />
+                    </View>
+                    <TouchableOpacity
+                      onPress={this.togglePassword.bind(this)}
+                      style={{width: 25, height: 25,marginTop:5,flexDirection: 'row',justifyContent:'center'}}>
+                      {isShow}
+                     </TouchableOpacity>
+               </View>
+
+               <View style={{flexDirection: 'row',margin: 3,marginBottom:10}}>
+
+                      <View style={{width: 350, height: 40}}>
+                       <TouchableHighlight  style = {styles.button}  onPress={this._onLoginClicked.bind(this)} >
+                       <Text style = {styles.submitButtonText}>Login</Text>
+                      </TouchableHighlight>
+                   </View>
+             </View>
+       </View>
+            {spinner}
+
       </View>
       );
       }

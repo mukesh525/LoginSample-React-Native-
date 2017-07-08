@@ -6,7 +6,7 @@ import {
     StatusBar,
     View
 } from 'react-native';
-import { COLOR, ThemeProvider, Toolbar, Drawer, Avatar } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import Container from '../Container';
 import uiThemee from '../app/theme';
 

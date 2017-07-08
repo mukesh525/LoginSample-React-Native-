@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Image } from 'react-native'
 
 const Home = () => {
-   <Image source = {require('../img/logo.png')} />
+   <Image style = {{borderRadius: 10,borderColor: '#FF4500',borderWidth: 2}} source = {require('../img/logo.png')} />
 }
 
 
