@@ -268,7 +268,11 @@ class LoginView extends Component{
               borderRadius: 10,
               borderColor: '#FF4500',
               borderWidth: 2}}>
-            <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
+             <View style={{flexDirection: 'row',margin: 5}}>
+                 <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
+                 <View style={{width: 300, height: 40,marginRight: 5}}>
+                </View>
+            </View>
             </View>
              </View>
           );
