@@ -10,6 +10,7 @@ import Font from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { NavigationActions } from 'react-navigation'
 import Logo from './logo';
+
 //import Input from 'react-input-password';.
 
 const styles =StyleSheet.create({
