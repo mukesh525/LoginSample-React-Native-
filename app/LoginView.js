@@ -20,7 +20,7 @@ const styles =StyleSheet.create({
     flexDirection:'column',
     justifyContent:'center',
     backgroundColor:'#D3D3D3',
-    marginBottom:40
+    marginBottom:40,
   },
 
    input :{
@@ -259,23 +259,34 @@ class LoginView extends Component{
 
       renderLoadingView() {
          return (
-            <View style={styles.container}>
-            <View style = {{
-              backgroundColor: '#C0C0C0',
-              padding :2,
-              margin:5,
-              margin:120,
-              borderRadius: 10,
-              borderColor: '#FF4500',
-              borderWidth: 2}}>
-             <View style={{flexDirection: 'row',margin: 5}}>
-                 <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
-                 <View style={{width: 300, height: 40,marginRight: 5}}>
-                </View>
-            </View>
-            </View>
-             </View>
-          );
+           <View style={{
+                   flex: 1,
+                   flexDirection: 'column',
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                 }}>
+                  <View style = {{
+                        backgroundColor: '#C0C0C0',
+                        padding :2,
+                        margin:5,
+                        width: 100,
+                        height: 100,
+                        borderRadius: 10,
+                        borderColor: '#FF4500',
+                        flexDirection: 'column',
+                        justifyContent:'center',
+                        borderWidth: 2}}>
+                              <View>
+                                  <ActivityIndicator size='large' text = 'Please wait'/>
+                              </View>
+                               <View style={{marginTop:8, alignItems: 'center'}}>
+                                 <Text>  Loging.. </Text>
+                                 <Text> Please wait.. </Text>
+                              </View>
+                        </View>
+
+                   </View>
+                   );
         }
 
 
@@ -372,7 +383,7 @@ class LoginView extends Component{
       if (this.state.isLoading) {
           return this.renderLoadingView();
       } else {
-          return this.renderLoadingView();
+          return this.renderLogingView();
        }
        return (
        <View style={styles.container}>

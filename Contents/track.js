@@ -180,7 +180,7 @@ componentWillMount(){
   render() {
     console.log("render called")
   //  const { businessName,empEmail,empName,empContact} = this.props.response;
-    var records = this.state.records;
+      var records = this.state.records;
       if (this.state.isLoading) {
           return this.renderLoadingView();
        }
@@ -206,10 +206,32 @@ componentWillMount(){
   }
 
   renderLoadingView() {
+     return (
+       <View style={{
+               flex: 1,
+               flexDirection: 'column',
+               justifyContent: 'center',
+               alignItems: 'center',
+             }}>
+              <View style = {{
+                    padding :2,
+                    width: 100,
+                    height: 100,
+                    borderRadius: 10,
+                    borderColor: '#FF4500',
+                    flexDirection: 'column',
+                    justifyContent:'center',
+                    borderWidth: 2}}>
+                          <View>
+                              <ActivityIndicator color ="#000"size='large' text = 'Please wait'/>
+                          </View>
+                           <View style={{marginTop:8,alignItems: 'center'}}>
+                             <Text> Loading.. </Text>
+                          </View>
+                    </View>
 
-   return (
-        <ActivityIndicator style ={styles.container} size='large' text = 'Please wait'/>
-      );
+               </View>
+               );
     }
 
 
