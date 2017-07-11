@@ -6,6 +6,7 @@ import {
   StatusBar,TouchableHighlight,ActivityIndicator,
   View,ListView,TextInput
 } from 'react-native';
+import { Checkbox } from 'react-native-material-design';
 import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
 import Container from '../Container';
 
@@ -128,6 +129,7 @@ export default class DetailView extends Component {
 
 
    renderRecord(field) {
+     console.log(field)
       if(field.type == "hidden"){
              return <View/>;
        }
@@ -135,8 +137,7 @@ export default class DetailView extends Component {
         return (
         <View style ={styles.outerView}>
                    <Text style ={{flex:.5}} >{field.label}</Text>
-                   <Text style ={{flex:.5}}> {field.value} </Text>
-                   <TextInput style={styles.input}
+                    <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
                     placeholderTextColor ="#9a73ef"
                     placeholder={field.label}
@@ -147,19 +148,52 @@ export default class DetailView extends Component {
 
       }
 
+     else if(field.type == 'checkbox'||field.type == 'radio'){
+       let checkboxItem = Object.keys(field.options).map(function(key, index) {
+             return  <View style ={{
+             flex:1,
+             flexDirection:'row',
+             alignItems: 'center',
+             }} >
+                   <Checkbox  checked = {true} value= {key} />
+                   <Text style ={{flex:.5}}> {field.options[key]} </Text></View>
+        });
+       return (
+         <View style ={styles.outerView}>
+                    <Text style ={{flex:.5}} >{field.label}</Text>
+                      <View style={styles.innerView}>
+                        {checkboxItem}
+                      </View>
+                   <View style={styles.separator} />
+          </View>
+           );
+
+
+     }
+
       else if(field.type == 'dropdown'){
+      console.log(field.options)
       let pickerItem = Object.keys(field.options).map(function(key, index) {
            return <Picker.Item key={key} value= {key} label={field.options[key]} />
        });
       return (
-          <View style ={styles.dropdownView}>
+          <View style ={{
+            marginTop:10,
+            marginLeft:10,
+            marginRight:10,
+            backgroundColor: 'powderblue',
+            padding :10,
+            flex:10,
+            alignItems:'center',
+            flexDirection:'row',
+            justifyContent:'flex-start',
+            height: pickerItem.length > 3 ? 230:120 }}>
           <Text style ={{flex:2,textAlign:'center'}} >{field.label}</Text>
           <Picker
-            style = {{flex:8,width:50,paddingBottom:10,alignSelf: 'stretch',color: 'black'}}
-            selectedValue={this.state.language}
+            style = {{flex:8}}
+            selectedValue={field.value}
             onValueChange={(language) => this.setState({language})}
-            mode="modal"
-           >
+            mode="modal">
              {pickerItem}
           </Picker>
        </View>
@@ -274,15 +308,17 @@ const styles = StyleSheet.create({
                    backgroundColor: 'powderblue',
                    padding :10,
                    flex:10,
-                   alignItems: 'center',
+                   alignItems:'center',
                    flexDirection:'row',
                    justifyContent:'flex-start',
-                   height:120
+                   height:230
               },
    innerView :{
          marginTop:5,
+         flex:.5,
+         alignItems:'center',
          flexDirection:'column',
-         justifyContent:'space-between'
+         justifyContent:'center'
 
        },
        input :{
