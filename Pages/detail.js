@@ -135,6 +135,8 @@ export default class DetailView extends Component {
                     <TextInput style={styles.input}
                     underlineColorAndroid="transparent"
                     placeholderTextColor ="#9a73ef"
+                    TextColor="white"
+                    secureTextEntry={false}
                     placeholder={field.label}
                     textAlign = "left"
                    />
@@ -312,7 +314,6 @@ submitButtonText:{
             marginTop:10,
             marginLeft:10,
             marginRight:10,
-
             backgroundColor: 'powderblue',
             padding :10,
             flex:1,
@@ -341,7 +342,8 @@ submitButtonText:{
          justifyContent:'center'
 
        },
-       input :{
+        input :{
+                color:'#000',
                 height:40,
                 flex:.5,
                 fontSize:13,
