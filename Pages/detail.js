@@ -51,16 +51,11 @@ export default class DetailView extends Component {
   _initReport() {
     const {data} = this.props.navigation.state.params;
     this.setState({ isLoading: !this.state.refreshing ,message: ''});
-    console.log("_initDetailReport called "+data.key+ "  authKey   " +data.response.authKey)
     var form = new FormData();
     form.append('authKey', data.response.authKey);
-    console.log('authKey '+ data.response.authKey);
     form.append('callid', data.currentRecord.callid);
-    console.log('callid '+ data.currentRecord.callid);
     form.append('groupname', data.currentRecord.groupname|| data.currentRecord.empName);
-    console.log('groupname '+ data.currentRecord.groupname|| data.currentRecord.empName)
     form.append('type', data.key);
-    console.log('type '+ data.key);
     fetch('https://mcube.vmctechnologies.com/mobappv1/getDetail', {
        method: 'POST',
        headers: {
@@ -151,12 +146,13 @@ export default class DetailView extends Component {
      else if(field.type == 'checkbox'||field.type == 'radio'){
        let checkboxItem = Object.keys(field.options).map(function(key, index) {
              return  <View style ={{
-             flex:1,
-             flexDirection:'row',
-             alignItems: 'center',
-             }} >
-                   <Checkbox  checked = {true} value= {key} />
-                   <Text style ={{flex:.5}}> {field.options[key]} </Text></View>
+                       flex:1,
+                       flexDirection:'row',
+                       alignItems: 'center',
+                       }} >
+                       <Checkbox  checked = {true} value= {key} />
+                       <Text style ={{flex:.5}}> {field.options[key]} </Text>
+                   </View>
         });
        return (
          <View style ={styles.outerView}>
@@ -177,26 +173,26 @@ export default class DetailView extends Component {
            return <Picker.Item key={key} value= {key} label={field.options[key]} />
        });
       return (
-          <View style ={{
-            marginTop:10,
-            marginLeft:10,
-            marginRight:10,
-            backgroundColor: 'powderblue',
-            padding :10,
-            flex:10,
-            alignItems:'center',
-            flexDirection:'row',
-            justifyContent:'flex-start',
-            height: pickerItem.length > 3 ? 230:120 }}>
-          <Text style ={{flex:2,textAlign:'center'}} >{field.label}</Text>
-          <Picker
-            style = {{flex:8}}
-            selectedValue={field.value}
-            onValueChange={(language) => this.setState({language})}
-            mode="modal">
-             {pickerItem}
-          </Picker>
-       </View>
+            <View style ={{
+              marginTop:10,
+              marginLeft:10,
+              marginRight:10,
+              backgroundColor: 'powderblue',
+              padding :10,
+              flex:10,
+              alignItems:'center',
+              flexDirection:'row',
+              justifyContent:'flex-start',
+              height: pickerItem.length > 3 ? 230:120 }}>
+                <Text style ={{flex:2,textAlign:'center'}} >{field.label}</Text>
+                <Picker
+                style = {{flex:8}}
+                selectedValue={field.value}
+                onValueChange={(language) => this.setState({language})}
+                mode="dropdown">
+                 {pickerItem}
+                </Picker>
+          </View>
       );
   }
 
@@ -266,6 +262,14 @@ export default class DetailView extends Component {
                             style={styles.listView}
                             enableEmptySections = {true}
                             />
+                           <View style= {{flexDirection:'row',justifyContent:'center'}}>
+                             <TouchableHighlight  style = {styles.button} >
+                              <Text style = {styles.submitButtonText}>Update</Text>
+                             </TouchableHighlight>
+                             <TouchableHighlight  style = {styles.button} >
+                              <Text style = {styles.submitButtonText}>Add Followup</Text>
+                             </TouchableHighlight>
+                           </View>
                         </View>
             </Container>
      </ThemeProvider>
@@ -289,10 +293,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  button: {
+    backgroundColor: COLOR.orange700,
+    width:150,
+    height:40,
+    margin:10,
+    borderRadius: 10,
+    padding:5,
+    alignItems :'center',
+    flexDirection:'column',
+    justifyContent:'center',
+},
+submitButtonText:{
+     color: 'white',
+     fontSize:20,
+  },
   outerView :{
             marginTop:10,
             marginLeft:10,
             marginRight:10,
+
             backgroundColor: 'powderblue',
             padding :10,
             flex:1,
