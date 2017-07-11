@@ -134,7 +134,12 @@ export default class TrackView extends Component {
     }
 
  onLearnMore = (record) => {
-     this.props.method('Details',this.state);
+    this.setState({
+     currentRecord:record,
+    }, function () {
+       this.props.method('Details',this.state);
+    });
+
 
  };
 
